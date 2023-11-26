@@ -94,7 +94,7 @@
     </p>
 <div  class="table-name">
   <strong>Table 2</strong> 
-  Experiment results in multiple noisy scenes
+  Comparison and ablation experiment results in multiple noisy scenes in CHiME-3
 </div>
  <!-- <div>  
   <table class="my-table2">
@@ -392,6 +392,22 @@
         <td>1.2520±0.1835</td>
       </tr>
       <tr>
+        <td><b>MeteicGAN-U</b></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><b>MeteicGAN-U-SV</b></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
         <td><b>STGCSEN</b></td>
         <td>1.5215±0.2065</td>
         <td>1.8112±0.2016</td>
@@ -407,7 +423,7 @@
         <td>1.8825±0.2294</td>
         <td>1.7963±0.2644</td>
       </tr>
-    </tbody>
+          </tbody>
   </table>
 </div>
 
@@ -682,7 +698,7 @@
 
     <tr>
       <td>
-        LSTM_IPD
+        LSTM-IPD
       </td>
       <td>
         <div class="audio-wrapper">
@@ -946,11 +962,11 @@
         <audio controls src="wav\wav_SE\CAF\CNN\noisy_fileid_23.wav"></audio>
       </div>
     </td>
-  </tr>
-
+  </tr> 
+  
   <tr>
     <td>
-      LSTM_IPD
+      LSTM-IPD
     </td>
     <td>
       <div class="audio-wrapper">
@@ -1217,7 +1233,7 @@
 
   <tr>
     <td>
-      LSTM_IPD
+      LSTM-IPD
     </td>
     <td>
       <div class="audio-wrapper">
@@ -1485,7 +1501,7 @@
 
   <tr>
     <td>
-      LSTM_IPD
+      LSTM-IPD
     </td>
     <td>
       <div class="audio-wrapper">
@@ -1663,3 +1679,459 @@
 </table>
 </div>
 
+
+<div>
+  <div  class="table-name">
+    <strong>Table 5-5</strong> 
+    Wav samples for speech enhancement-cocktail party with interfering persons (SNR=10dB)
+  </div>
+</div>
+<div>
+<table>
+  <tr>
+    <td>
+      Clean
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\clean\clean_fileid_1_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\clean\clean_fileid_8_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\clean\clean_fileid_16_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\clean\clean_fileid_21_reader_01326.wav"></audio>
+      </div>
+    </td>
+  </tr>
+
+    <tr>
+    <td>
+      Noisy
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\noisy\noisy_fileid_1_01326_04069_23_05919_53_snr10_tl-17.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\noisy\noisy_fileid_8_01326_08897_8_00927_45_snr10_tl-33.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\noisy\noisy_fileid_16_01326_02124_43_07339_79_snr10_tl-24.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\noisy\noisy_fileid_21_01326_08897_48_05919_60_snr10_tl-24.wav"></audio>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      STGCSEN
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\STGCSEN\enhanced_STGCSEN_fileid_1_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\STGCSEN\enhanced_STGCSEN_fileid_8_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\STGCSEN\enhanced_STGCSEN_fileid_16_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\STGCSEN\enhanced_STGCSEN_fileid_21_reader_01326.wav"></audio>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      STGCSEN-SV
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\STGCSEN_SV\enhanced_STGCSEN_fileid_1_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\STGCSEN_SV\enhanced_STGCSEN_fileid_8_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\STGCSEN_SV\enhanced_STGCSEN_fileid_16_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\STGCSEN-SV\enhanced_STGCSEN_fileid_41_reader_01326.wav"></audio>
+      </div>
+    </td>
+  </tr>
+</table>
+</div>
+
+<div>
+  <div  class="table-name">
+    <strong>Table 5-6</strong> 
+    Wav samples for speech enhancement-cocktail party with interfering persons (SNR=15dB)
+  </div>
+</div>
+<div>
+<table>
+  <tr>
+    <td>
+      Clean
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\clean\clean_fileid_12_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\clean\clean_fileid_18_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\clean\clean_fileid_27_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\clean\clean_fileid_41_reader_01326.wav"></audio>
+      </div>
+    </td>
+  </tr>
+
+    <tr>
+    <td>
+      Noisy
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\noisy\noisy_fileid_12_01326_08897_71_05919_79_snr15_tl-25.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\noisy\noisy_fileid_18_01326_04069_61_08897_83_snr15_tl-29.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\noisy\noisy_fileid_27_01326_00927_61_07639_75_snr15_tl-27.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\noisy\noisy_fileid_41_01326_04069_22_03955_62_snr15_tl-27.wav"></audio>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      STGCSEN
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\STGCSEN\enhanced_STGCSEN_fileid_12_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\STGCSEN\enhanced_STGCSEN_fileid_18_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\STGCSEN\enhanced_STGCSEN_fileid_27_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\STGCSEN\enhanced_STGCSEN_fileid_41_reader_01326.wav"></audio>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      STGCSEN-SV
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\STGCSEN-SV\enhanced_STGCSEN_fileid_12_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\STGCSEN-SV\enhanced_STGCSEN_fileid_18_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\STGCSEN-SV\enhanced_STGCSEN_fileid_27_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\STGCSEN-SV\enhanced_STGCSEN_fileid_41_reader_01326.wav"></audio>
+      </div>
+    </td>
+  </tr>
+</table>
+</div>
+
+<div>
+  <div  class="table-name">
+    <strong>Table 5-7</strong> 
+    Wav samples for speech enhancement-cocktail party with noises (SNR=10dB)
+  </div>
+</div>
+<div>
+<table>
+  <tr>
+    <td>
+      Clean
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\clean\clean_fileid_2_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\clean\clean_fileid_3_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\clean\clean_fileid_9_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\clean\clean_fileid_14_reader_01326.wav"></audio>
+      </div>
+    </td>
+  </tr>
+
+    <tr>
+    <td>
+      Noisy
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\noisy\noisy_fileid_2_01326_door_wood_knock_66_clock_alarm_5_snr10_tl-23.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\noisy\noisy_fileid_3_01326_water_drops_52_footsteps_14_snr10_tl-17.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\noisy\noisy_fileid_9_01326_footsteps_15_water_drops_21_snr10_tl-32.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\noisy\noisy_fileid_14_01326_clock_alarm_47_mouse_click_97_snr10_tl-21.wav"></audio>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      STGCSEN
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\STGCSEN\enhanced_STGCSEN_fileid_2_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\STGCSEN\enhanced_STGCSEN_fileid_3_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\STGCSEN\enhanced_STGCSEN_fileid_9_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\STGCSEN\enhanced_STGCSEN_fileid_14_reader_01326.wav"></audio>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      STGCSEN-SV
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\STGCSEN_SV\enhanced_STGCSEN_fileid_2_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\STGCSEN_SV\enhanced_STGCSEN_fileid_3_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\STGCSEN_SV\enhanced_STGCSEN_fileid_9_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\STGCSEN_SV\enhanced_STGCSEN_fileid_14_reader_01326.wav"></audio>
+      </div>
+    </td>
+  </tr>
+</table>
+</div>
+
+<div>
+  <div  class="table-name">
+    <strong>Table 5-7</strong> 
+    Wav samples for speech enhancement-cocktail party with interfering persons (SNR=15dB)
+  </div>
+</div>
+<div>
+<table>
+  <tr>
+    <td>
+      Clean
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\clean\clean_fileid_4_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\clean\clean_fileid_8_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\clean\clean_fileid_13_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\clean\clean_fileid_17_reader_01326.wav"></audio>
+      </div>
+    </td>
+  </tr>
+
+    <tr>
+    <td>
+      Noisy
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\noisy\noisy_fileid_4_01326_clapping_62_coughing_44_snr15_tl-27.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\noisy\noisy_fileid_8_01326_keyboard_typing_57_clock_alarm_40_snr15_tl-31.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\noisy\noisy_fileid_13_01326_dog_67_footsteps_66_snr15_tl-18.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\noisy\noisy_fileid_17_01326_clock_alarm_5_water_drops_81_snr15_tl-22.wav"></audio>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      STGCSEN
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\STGCSEN\enhanced_STGCSEN_fileid_4_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\STGCSEN\enhanced_STGCSEN_fileid_8_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\STGCSEN\enhanced_STGCSEN_fileid_27_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\STGCSEN\enhanced_STGCSEN_fileid_17_reader_01326.wav"></audio>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      STGCSEN-SV
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\STGCSEN_SV\enhanced_STGCSEN_fileid_4_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\STGCSEN_SV\enhanced_STGCSEN_fileid_8_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\STGCSEN_SV\enhanced_STGCSEN_fileid_13_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\STGCSEN_SV\enhanced_STGCSEN_fileid_17_reader_01326.wav"></audio>
+      </div>
+    </td>
+  </tr>
+</table>
+</div>
