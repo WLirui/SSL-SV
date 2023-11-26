@@ -1,3 +1,13 @@
+
+.fit-picture {
+  position: relative;
+  width: 50%;
+}
+
+.fit-picture2 {
+  position: relative;
+  width: 30%;
+}
 /* 尝试表格样式fyx*/
 .head-table {
   width: 60%;
@@ -120,6 +130,14 @@
   border-bottom-style: solid;
   border-left-style: none;
 }
+
+.my-table2 th[scope='top'] {
+  border-top-style: solid;
+  
+  border-bottom-style: none;
+  border-left-style: none;
+}
+
 .my-table2 td[scope='row'] {
   border-top-style: none;
   
@@ -143,22 +161,26 @@
 }
 
 .my-table2 thead tr {
-  border-bottom: 1.5px solid black; /* 添加表头底部边框 */
+  border-bottom: 3px solid black; /* 添加表头底部边框 */
 }
 
 .my-table2 tr:first-child td {
-  border-top: 1.5 solid black;
-  border-bottom: 1.5px solid black;
+  border-top: 2 solid black;
+  border-bottom: 2px solid black;
 }
 
-
+.my-table2 th[rowspan] {
+  border-bottom: 3px solid black;
+}
 
 
 /* 设置每一列的宽度 */
 .my-table2 td:nth-child(1),
 .my-table2 th:nth-child(1) {
   width: 20%;
+
 }
+
 
 
 

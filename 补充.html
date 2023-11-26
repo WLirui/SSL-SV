@@ -1,0 +1,112 @@
+<head>
+    <link rel="stylesheet" href="styles.css">
+</head>
+  
+<div  class="table-name">
+    <strong>Table 2</strong> 
+    Comparison and ablation experiment results in multiple noisy scenes in CHiME-3
+    </div>
+    
+    <div>  
+    <table class="my-table2">
+      <thead>
+        <tr>
+          <td></td>
+          <td scope="rol"></td>
+          <td scope="rol"></td>
+          <td ></td>
+          <td><b>PESQ</b></td>
+          <td></td>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td scope="rol"></td>
+          <td scope="rol"><b>BUS</b></td>
+          <td><b>CAF</b></td>
+          <td><b>PED</b></td>
+          <td><b>STR</b></td>
+          <td><b>Avg.</b></td>
+        </tr>
+        
+        <tr >
+          <th rowspan="5">Supervised learning</th>
+          <th >Noisy(channel 1)</th>
+          <td>1.2228±0.1197</td>
+          <td>1.1157±0.0460</td>
+          <td>1.1227±0.0710</td>
+          <td>1.1503±0.0810</td>
+          <td>1.1552±0.0959</td>
+        </tr>
+        <tr>
+          <th>CNN</th>
+          <td>1.6300±0.2162</td>
+          <td>1.4655±0.1301</td>
+          <td>1.5168±0.2120</td>
+          <td>1.6003±0.2469</td>
+          <td>1.5564±0.2145</td>
+        </tr>
+        <tr>
+          <th>LSTM-IPD</th>
+          <td>1.9105±0.4108</td>
+          <td>1.4864±0.1613</td>
+          <td>1.5117±0.2760</td>
+          <td>1.6558±0.3446</td>
+          <td>1.6442±0.3590</td>
+        </tr>
+        <tr>
+          <th>UNet-GCN</th>
+          <td>1.6131±0.2341</td>
+          <td>1.4136±0.1255</td>
+          <td>1.4724±0.2129</td>
+          <td>1.5632±0.2407</td>
+          <td>1.5178±0.2241</td>
+        </tr>
+        <tr>
+          <th scope="row">STGCSEN</th>
+          <td scope='row'>2.0381±0.2988</td>
+          <td scope='row'>1.7703±0.1969</td>
+          <td scope='row'>1.7272±0.3291</td>
+          <td scope='row'>1.9593±0.3160</td>
+          <td scope='row'>1.8764±0.3216</td>
+        </tr>
+        <tr>
+          <th rowspan="4",scope="top">Self-supervised learning</th>
+          <th>MetricGAN-U</th>
+          <td>1.2138±0.1127</td>
+          <td>1.2049±0.0738</td>
+          <td>1.2624±0.1355</td>
+          <td>1.2407±0.1420</td>
+          <td>1.2325±0.1229</td>
+        </tr>
+        <tr>
+          <th>MetricGAN-U-SV</th>
+          <td>1.5853±0.1762</td>
+          <td>1.5214±0.2067</td>
+          <td>1.5438±0.2713</td>
+          <td>1.5254±0.2307</td>
+          <td>1.5458±0.0628</td>
+        </tr>
+        <tr>
+          <th>STGCSEN-SV(without 3D mask)</th>
+          <td>2.0350±0.2730</td>
+          <td>1.7981±0.1920</td>
+          <td>1.8130±0.3279</td>
+          <td>1.9480±0.3257</td>
+          <td>1.8991±0.3056</td>
+        </tr>
+        <tr>
+          <th>STGCSEN-SV</th>
+          <td>2.0353±0.2676</td>
+          <td>1.8067±0.1941</td>
+          <td>1.8205±0.3213</td>
+          <td>1.9526±0.3220</td>
+          <td>1.9042±0.3006</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    
+    

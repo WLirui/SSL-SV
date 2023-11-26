@@ -1,939 +1,572 @@
 <head>
-    <link rel="stylesheet" href="styles.css">
-  </head>
-  
-  <h1>Self-Supervised Generative Network for Personalized Speech Enhancement</h1>
-  <h2><strong>Authors:</strong> "Chi Yang, <a href="mailto:jjyu@bjtu.deu.cn">Jingjing Yu*</a>, Luyao Zhang, Lirui Wu"</h2>
-  
-    
-<div class="spacer"></div>
+  <link rel="stylesheet" href="styles.css">
+</head>
 
-<div>
-  <h2><strong>Experiment on reconstruction</strong></h2>
-  <p>
-    <b>Table 1</b> is to prove the robustness of generator against unknown multi-source dynamic scene with different masking.The testing set with random selection of sources is totally different with training set, the more severely the random mask masks the spectrogram, the better robust the generator will perform, especially when facing with unknown dynamic environment .
-  </p>
-  <div  class="table-name">
-      <strong>Table 1</strong> 
-      Comparison experiment on different mask method and the same mask ratio 30~40%
-  </div>
+<h1>Self-Supervised Generative Network for Personalized Speech Enhancement</h1>
+<h2><strong>Authors:</strong> "Chi Yang, <a href="mailto:jjyu@bjtu.deu.cn">Jingjing Yu*</a>, Luyao Zhang, Lirui Wu"</h2>
+
+
+<div align="center">
+  <img
+  class="fit-picture"
+  src="系统框图.png" />
 </div>
-
-
-<div>
-  <table class="head-table">
-    <tbody>
-      <tr>
-        <td width="40%"></td>
-        <th width="20%">MSE</th>
-        <td width="20%"><b>PESQ</b></td>
-        <td width="20%"><b>STOI</b></td>
-      </tr>
-    </tbody>
-  </table>
-  <table class="middle1-table">
-    <tbody>
-      <tr>
-        <th scope='col'>Original mixture</th>
-        <td>0.0</td>
-        <td>4.4674</td>
-        <td>1.0</td>
-      </tr>
-    
-    
-      <tr>
-        <th scope="col">DAPC</th>
-        <td>0.1109±0.0417</td>
-        <td>1.3926±0.1060</td>
-        <td>0.8366±0.0350</td>
-      </tr>
-      <tr>
-        <th scope='col'>Point mask</th>
-        <td>0.0780±0.0209</td>
-        <td>2.4902±0.2093</td>
-        <td>0.9212±0.0190</td>
-      </tr>
-      <tr>
-        <th scope='col'>Frame mask</th>
-        <td>0.0789±0.0252</td>
-        <td>2.4972±0.2217</td>
-        <td>0.9141±0.0219</td>
-      </tr>
-      <tr>
-        <th scope='col'>Cross mask</th>
-        <td>0.0993±0.0203</td>
-        <td>2.1747±0.2326</td>
-        <td>0.9083±0.0228</td>
-      </tr>
-      <tr>
-        <th scope='one'>Progressive mask</th>
-        <td scope='row'>0.0741±0.0210</td>
-        <td scope='row'>2.4969±0.2142</td>
-        <td scope='row'>0.9247±0.0200</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<div>
-  <p>
-    <b style="font-size: 22px;">Conclusion: </b> <br>
-    <b>1)</b> Compared PESQ with baseline, the STGCSEN frame mask show average more than 78.03% improvement. <br>
-    <b>2)</b> Compared PESQ with different mask program, our network has the best reconstruction performance on frame mask. 
-  </p>
-</div>
-
-<div class="spacer"></div>
-
-<div>
-  <h2><strong>Experiment on speech enhancement</strong></h2>
-  <div>
-    <p>
-    <b>Table 2 </b>gives the speech enhancement results on PESQ for different scenes in CHiME-3 datasets. 
-    It is to prove the success of our network on self-supvervised speech enhancement by comparing with supvised and self-supervised baselines.
-    </p>
 <div  class="table-name">
-  <strong>Table 2</strong> 
-  Comparison and ablation experiment results in multiple noisy scenes in CHiME-3
+  <strong>Fig.1 </strong> Framework of proposed self-supervised generative network STGCSEN-SV for speech enhancement  
 </div>
- <!-- <div>  
-  <table class="my-table2">
-    <tbody>
-      <tr>
-        <th width="10%"></th>
-        <th width="10%"></th>
-        <th width="10%"></th>
-        <th width="10%"></th>
-        <th width="10%">PESQ</th>
-        <th width="20%"></th>
-        <th width="20%"></th>
-        
-      
-      </tr>
-    </tbody>
-    <tbody>
-      <tr>
-        <td ></td>
-        <td ></td>
-        <td >BUS</td>
-        <td >CAF</td>
-        <td >PED</td>
-        <td >STR</td>
-        <td >Avg.</td>
-      
-      </tr>
-    </tbody> 
-  </table>
 
-  <table class="middle2-table">
-      <tr>
-        <th rowspan="5", scope='one'>Supervised learning</th>
-        <th scope='col'>Noisy(channel 1)</th>
-        <td>1.2228±0.1197</td>
-        <td>1.1157±0.0460</td>
-        <td>1.1227±0.0710</td>
-        <td>1.1503±0.0810</td>
-        <td>1.1552±0.0959</td>
-      </tr>
-      <tr>
-        <th scope='col'>CNN</th>
-        <td>1.6300±0.2162</td>
-        <td>1.4655±0.1301</td>
-        <td>1.5168±0.2120</td>
-        <td>1.6003±0.2469</td>
-        <td>1.5564±0.2145</td>
-      </tr>
-      <tr>
-        <th scope='col'>LSTM-IPD</th>
-        <td>1.9105±0.4108</td>
-        <td>1.4864±0.1613</td>
-        <td>1.5117±0.2760</td>
-        <td>1.6558±0.3446</td>
-        <td>1.6442±0.3590</td>
-      </tr>
-      <tr>
-        <th scope='col'>UNet-GCN</th>
-        <td>1.6131±0.2341</td>
-        <td>1.4136±0.1255</td>
-        <td>1.4724±0.2129</td>
-        <td>1.5632±0.2407</td>
-        <td>1.5178±0.2241</td>
-      </tr>
-      <tr>
-        <th scope='one'>STGCSEN</th>
-        <td scope='row'>2.0381±0.2988</td>
-        <td scope='row'>1.7703±0.1969</td>
-        <td scope='row' >1.7272±0.3291</td>
-        <td scope='row'>1.9593±0.3160</td>
-        <td scope='row'>1.8764±0.3216</td>
-      </tr>
-      <tr>
-        <th scope='one', rowspan="4">Self-supervised learning</th>
-        <th scope='col'>MetricGAN-U</th>
-        <td>1.2138±0.1127</td>
-        <td>1.2049±0.0738</td>
-        <td>1.2624±0.1355</td>
-        <td>1.2407±0.1420</td>
-        <td>1.2325±0.1229</td>
-      </tr>
-      <tr>
-        <th scope='col'>MetricGAN-U-SV</th>
-        <td>1.5853±0.1762</td>
-        <td>1.5214±0.2067</td>
-        <td>1.5438±0.2713</td>
-        <td>1.5254±0.2307</td>
-        <td>1.5458±0.0628</td>
-      </tr>
-      <tr>
-        <th scope='col'>STGCSEN-SV(without 3D mask)</th>
-        <td>2.0350±0.2730</td>
-        <td>1.7981±0.1920</td>
-        <td>1.8130±0.3279</td>
-        <td>1.9480±0.3257</td>
-        <td>1.8991±0.3056</td>
-      </tr>
-      <tr>
-        <th scope='one'>STGCSEN-SV</th>
-        <td scope='row'>2.0353±0.2676</td>
-        <td scope='row'>1.8067±0.1941</td>
-        <td scope='row'>1.8205±0.3213</td>
-        <td scope='row'>1.9526±0.3220</td>
-        <td scope='row'>1.9042±0.3006</td>
-      </tr>
-    </tbody>
-  </table>
-</div> -->
-<div>  
-  <table class="my-table2">
-    <thead>
-      <tr>
-        
-        <td></td>
-        <td></td>
-        <td><b>PESQ</b></td>
-        <td></td>
-        <td></td>
-        <td ></td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td></td>
-        <td></td>
-        <td scope="rol"><b>BUS</b></td>
-        <td><b>CAF</b></td>
-        <td><b>PED</b></td>
-        <td><b>STR</b></td>
-        <td><b>Avg.</b></td>
-      </tr>
-      <tr>
-        <th rowspan="5",scope='row'>Supervised learning</th>
-        <th >Noisy(channel 1)</th>
-        <td>1.2228±0.1197</td>
-        <td>1.1157±0.0460</td>
-        <td>1.1227±0.0710</td>
-        <td>1.1503±0.0810</td>
-        <td>1.1552±0.0959</td>
-      </tr>
-      <tr>
-        <th>CNN</th>
-        <td>1.6300±0.2162</td>
-        <td>1.4655±0.1301</td>
-        <td>1.5168±0.2120</td>
-        <td>1.6003±0.2469</td>
-        <td>1.5564±0.2145</td>
-      </tr>
-      <tr>
-        <th>LSTM-IPD</th>
-        <td>1.9105±0.4108</td>
-        <td>1.4864±0.1613</td>
-        <td>1.5117±0.2760</td>
-        <td>1.6558±0.3446</td>
-        <td>1.6442±0.3590</td>
-      </tr>
-      <tr>
-        <th>UNet-GCN</th>
-        <td>1.6131±0.2341</td>
-        <td>1.4136±0.1255</td>
-        <td>1.4724±0.2129</td>
-        <td>1.5632±0.2407</td>
-        <td>1.5178±0.2241</td>
-      </tr>
-      <tr>
-        <th scope="row">STGCSEN</th>
-        <td scope='row'>2.0381±0.2988</td>
-        <td scope='row'>1.7703±0.1969</td>
-        <td scope='row'>1.7272±0.3291</td>
-        <td scope='row'>1.9593±0.3160</td>
-        <td scope='row'>1.8764±0.3216</td>
-      </tr>
-      <tr>
-        <th rowspan="4">Self-supervised learning</th>
-        <th>MetricGAN-U</th>
-        <td>1.2138±0.1127</td>
-        <td>1.2049±0.0738</td>
-        <td>1.2624±0.1355</td>
-        <td>1.2407±0.1420</td>
-        <td>1.2325±0.1229</td>
-      </tr>
-      <tr>
-        <th>MetricGAN-U-SV</th>
-        <td>1.5853±0.1762</td>
-        <td>1.5214±0.2067</td>
-        <td>1.5438±0.2713</td>
-        <td>1.5254±0.2307</td>
-        <td>1.5458±0.0628</td>
-      </tr>
-      <tr>
-        <th>STGCSEN-SV(without 3D mask)</th>
-        <td>2.0350±0.2730</td>
-        <td>1.7981±0.1920</td>
-        <td>1.8130±0.3279</td>
-        <td>1.9480±0.3257</td>
-        <td>1.8991±0.3056</td>
-      </tr>
-      <tr>
-        <th>STGCSEN-SV</th>
-        <td>2.0353±0.2676</td>
-        <td>1.8067±0.1941</td>
-        <td>1.8205±0.3213</td>
-        <td>1.9526±0.3220</td>
-        <td>1.9042±0.3006</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<div class="spacer"></div>
 
 <div>
-  <p>
-    <b style="font-size: 22px;">Conclusion:</b> <br>
-    <b>1)</b>When compared with the noisy data, our STGCSEN-SV shows average more than 60% improvement over all scenes (BUS: 66.45%, CAF: 61.93%, PED: 62.15%, STR: 69.75%).<br>
-    <b>2)</b> When compared the average PESQ with the supervised baseline, CNN, LSTM-IPD, UNet-GCN, our model improves 22.35%, 15.81%, 25.46%. Compared with STGCSEN, we can find that the performance of STGCSEN-SV on CAF and PED also have improvement. <br>
-    <b>3)</b>Compared with self-supervised baseline, STGCSEN-SV improves the noisy speech PESQ by an average of 58.16% more than MetricGAN-U.<br>
-    <b>4)</b>To show the effectiveness of the proposed SV extension, we adopt the same generator architecture with MetricGAN-U. TheMetricGAN-U-SV has 27.12% improvement on the averrage PESQ compared with MetricGAN-U.<br>
-    <b>5)</b>Ablation experiment shows the 0.45% improvement given by random mask reconstruction, shows its effectiveness.
-  </p>
+<h2><strong>A.Experiment on the robustness of generator against unknown multi-source dynamic scene with different masking</strong></h2>
+
+<div  class="table-name">
+    <strong>Table 1</strong> 
+    Comparison experiment on different mask methods and the same mask ratio 30~40%
+</div>
 </div>
 
 
 <div>
-  <p>
-    <b>Table 3</b> gives the speech enhancement results on PESQ for cocktail party scene. 
-    It shows excellent performance of our network on self-supvervised speech enhancement in the multi-source complex scenes.
-  </p>
-  <div  class="table-name">
-    <strong>Table 3</strong> 
-    Comparison experiment results in multiple noisy scenes in cocktail party scenes
-  </div>
-</div>
-
-<!-- <div>
-  <table width="80%" class="head-table3" style="table-layout:fixed">
-    <tbody>
-      <tr>
-        <td width="5%"></td>
-        <th >With interfering persons(SNR=10dB)</th>
-        <td ><b>With interfering persons(SNR=15dB)</b></td>
-        <td ><b>With noises(SNR=10dB)</b></td>
-        <td ><b>With noises(SNR=15dB)</b></td>
-        <td ><b>Avg.</b></td>
-      </tr>
-    </tbody>
-  </table>
-  <table class="middle3-table">
-    <tbody>
-      <tr>
-        <th scope='col'>Noisy</th>
-        <td>1.1482±0.0587</td>
-        <td>1.2487±0.1058</td>
-        <td>1.2099±0.1710</td>
-        <td>1.3653±0.2536</td>
-        <td>1.2520±0.1835</td>
-      </tr>
-      <tr>
-        <th scope='col'>STGCSEN</th>
-        <td>1.5215±0.2065</td>
-        <td>1.8112±0.2016</td>
-        <td>1.6705±0.2498</td>
-        <td>1.8278±0.2316</td>
-        <td>1.7077±0.2552</td>
-      </tr>
-      <tr>
-        <th scope='one'>STGCSEN-SV</th>
-        <td scope="row">1.5366±0.2061</td>
-        <td scope="row">1.8431±0.2055</td>
-        <td scope="row">1.6962±0.2609</td>
-        <td scope="row">1.8825±0.2294</td>
-        <td scope="row">1.7963±0.2644</td>
-      </tr>
-    </tbody>
-  </table>
-</div> -->
-
-<div>
-  <table class="my-table">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Interferences scene(SNR=10dB)</th>
-        <th>Interferences scene(SNR=15dB)</th>
-        <th>Background noises scene(SNR=10dB)</th>
-        <th>Background noises scene(SNR=15dB)</th>
-        <th>Avg.</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><b>Noisy</b>
-        <td>1.1482±0.0587</td>
-        <td>1.2487±0.1058</td>
-        <td>1.2099±0.1710</td>
-        <td>1.3653±0.2536</td>
-        <td>1.2520±0.1835</td>
-      </tr>
-      <tr>
-        <td><b>MeteicGAN-U</b></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><b>MeteicGAN-U-SV</b></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>With
-        <td></td>
-      </tr>
-      <tr>
-        <td><b>STGCSEN</b></td>
-        <td>1.5215±0.2065</td>
-        <td>1.8112±0.2016</td>
-        <td>1.6705±0.2498</td>
-        <td>1.8278±0.2316</td>
-        <td>1.7077±0.2552</td>
-      </tr>
-      <tr>
-        <td><b>STGCSEN-SV</b></td>
-        <td>1.5366±0.2061</td>
-        <td>1.8431±0.2055</td>
-        <td>1.6962±0.2609</td>
-        <td>1.8825±0.2294</td>
-        <td>1.7963±0.2644</td>
-      </tr>
-          </tbody>
-  </table>
-</div>
-
-<div>
-  <p>
-    <b style="font-size: 22px;">Conclusion: </b> <br>
-    <b>1)</b> Compared with the noisy data, STGCSEN-SV shows 38.95% improvement on the average of all scenes [33.82%, 43.46%, 40.19% and 37.88%, separately) <br>
-    <b>2)</b> Compared the average PESQ with the supervised baseline STGCSEN, the performance of STGCSEN-SV has 2.55% improvement, which proves the effectiveness of our SV module. 
-  </p>
-</div>
-    
-<div class="spacer"></div>  
-
-  <h2><strong>Wav Samples</strong></h2><br>
-  <!-- <p>Noisy wav</p> -->
+<table class="head-table">
+  <tbody>
+    <tr>
+      <td width="40%"></td>
+      <th width="20%">MSE</th>
+      <td width="20%"><b>PESQ</b></td>
+      <td width="20%"><b>STOI</b></td>
+    </tr>
+  </tbody>
+</table>
+<table class="middle1-table">
+  <tbody>
+    <tr>
+      <th scope='col'>Original mixture</th>
+      <td>0.0</td>
+      <td>4.4674</td>
+      <td>1.0</td>
+    </tr>
   
   
-  <div  class="table-name">
-    <strong>Table 4</strong> 
-    Wav samples for 3D mask reconstruction
-  </div>
-</div>
-<div>
-<table>
-  
-  <tr>
-    <td>
-      original mixture
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\original mixture\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\original mixture\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\original mixture\noisy_fileid_2_01326_05303_230_04069_1635_snr11_tl-26.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\original mixture\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      DAPC
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\DAPC\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\DAPC\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\DAPC\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\DAPC\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Point mask
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\Point mask\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\Point mask\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\Point mask\noisy_fileid_2_01326_05303_230_04069_1635_snr11_tl-26.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\Point mask\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Frame mask
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\Frame mask\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\Frame mask\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\Frame mask\noisy_fileid_2_01326_05303_230_04069_1635_snr11_tl-26.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\Frame mask\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Cross mask
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\Cross mask\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\Cross mask\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\Cross mask\noisy_fileid_2_01326_05303_230_04069_1635_snr11_tl-26.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\Cross mask\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Progressive mask
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\Progressive mask\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\Progressive mask\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\Progressive mask\noisy_fileid_2_01326_05303_230_04069_1635_snr11_tl-26.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_reconstrcution\Progressive mask\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
-      </div>
-    </td>
-  </tr>
+    <tr>
+      <th scope="col">DAPC</th>
+      <td>0.1109±0.0417</td>
+      <td>1.3926±0.1060</td>
+      <td>0.8366±0.0350</td>
+    </tr>
+    <tr>
+      <th scope='col'>Point mask</th>
+      <td>0.0780±0.0209</td>
+      <td>2.4902±0.2093</td>
+      <td>0.9212±0.0190</td>
+    </tr>
+    <tr>
+      <th scope='col'>Frame mask</th>
+      <td>0.0789±0.0252</td>
+      <td>2.4972±0.2217</td>
+      <td>0.9141±0.0219</td>
+    </tr>
+    <tr>
+      <th scope='col'>Cross mask</th>
+      <td>0.0993±0.0203</td>
+      <td>2.1747±0.2326</td>
+      <td>0.9083±0.0228</td>
+    </tr>
+    <tr>
+      <th scope='one'>Progressive mask</th>
+      <td scope='row'>0.0741±0.0210</td>
+      <td scope='row'>2.4969±0.2142</td>
+      <td scope='row'>0.9247±0.0200</td>
+    </tr>
+  </tbody>
 </table>
 </div>
 
-<!--*****************************BUS**************************-->
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
 
- 
-
-
-  
-  
- 
-  <div>
-    <div  class="table-name">
-      <strong>Table 5-1</strong> 
-      Wav samples for speech enhancement-BUS
-    </div>
- 
-  <div>
-  <table>
-    <tr>
-      <td>
-        clean
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\clean\clean_fileid_0.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\clean\clean_fileid_13.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\clean\clean_fileid_25.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\clean\clean_fileid_29.wav"></audio>
-        </div>
-      </td>
-    </tr>
-
-      <tr>
-      <td>
-        noisy
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\noisy\noisy_fileid_0.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\noisy\noisy_fileid_13.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\noisy\noisy_fileid_25.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\noisy\noisy_fileid_29.wav"></audio>
-        </div>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        CNN
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\CNN\noisy_fileid_0.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\CNN\noisy_fileid_13.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\CNN\noisy_fileid_25.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\CNN\noisy_fileid_29.wav"></audio>
-        </div>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        LSTM-IPD
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\LSTM_IPD\noisy_fileid_0.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\LSTM_IPD\noisy_fileid_13.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\LSTM_IPD\noisy_fileid_25.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\LSTM_IPD\noisy_fileid_29.wav"></audio>
-        </div>
-      </td>
-    </tr>
-   
-    <tr>
-      <td>
-        UNet_GCN
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\UNet_GCN\UNet_GCN_fileid_0.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\UNet_GCN\UNet_GCN_fileid_13.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\UNet_GCN\UNet_GCN_fileid_25.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\UNet_GCN\UNet_GCN_fileid_29.wav"></audio>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        STGCSEN
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\STGCSEN\enhanced_STGCSEN_fileid_0.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\STGCSEN\enhanced_STGCSEN_fileid_13.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\STGCSEN\enhanced_STGCSEN_fileid_25.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\STGCSEN\enhanced_STGCSEN_fileid_29.wav"></audio>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        MetricGAN_U
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\MetricGAN_U\enhanced_MeriGan_fileid_0_bus.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\MetricGAN_U\enhanced_MeriGan_fileid_13_bus.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\MetricGAN_U\enhanced_MeriGan_fileid_25_bus.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\MetricGAN_U\enhanced_MeriGan_fileid_29_bus.wav"></audio>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        MetricGAN_U_SV
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\MetricGAN_U_SV\enhanced_STGCSEN_fileid_0.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\MetricGAN_U_SV\enhanced_STGCSEN_fileid_13.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\MetricGAN_U_SV\enhanced_STGCSEN_fileid_25.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\MetricGAN_U_SV\enhanced_STGCSEN_fileid_29.wav"></audio>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        STGCSEN_SV_OUTMASK
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_0.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_13.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_25.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_29.wav"></audio>
-        </div>
-      </td>
-    </tr>
-
-
-    <tr>
-      <td>
-        STGCSEN_SV
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\STGCSEN_SV\enhanced_STGCSEN_fileid_0.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\STGCSEN_SV\enhanced_STGCSEN_fileid_13.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\STGCSEN_SV\enhanced_STGCSEN_fileid_25.wav"></audio>
-        </div>
-      </td>
-      <td>
-        <div class="audio-wrapper">
-          <audio controls src="wav\wav_SE\BUS\STGCSEN_SV\enhanced_STGCSEN_fileid_29.wav"></audio>
-        </div>
-      </td>
-    </tr>
-  </table>
-  </div>
-  
-<!--***********************CAF******************************-->
-<div>
-  <div  class="table-name">
-    <strong>Table 5-2</strong> 
-    Wav samples for speech enhancement-CAF
-  </div>
+<div  class="table-name">
+  Wav samples for 3D mask reconstruction
+</div>
+<div class="spacer"></div>
 </div>
 <div>
 <table>
+  <tr>
+  <th> </th>
+  <td>sample1 </td>
+    <td>sample2 </td>
+    <td>sample3 </td>
+    <td>sample4 </td>
+    </tr>
+  <tr>
+  <td>
+    original mixture
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\original mixture\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\original mixture\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\original mixture\noisy_fileid_2_01326_05303_230_04069_1635_snr11_tl-26.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\original mixture\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    DAPC
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\DAPC\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\DAPC\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\DAPC\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\DAPC\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    Point mask
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Point mask\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Point mask\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Point mask\noisy_fileid_2_01326_05303_230_04069_1635_snr11_tl-26.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Point mask\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    Frame mask
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Frame mask\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Frame mask\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Frame mask\noisy_fileid_2_01326_05303_230_04069_1635_snr11_tl-26.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Frame mask\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    Cross mask
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Cross mask\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Cross mask\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Cross mask\noisy_fileid_2_01326_05303_230_04069_1635_snr11_tl-26.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Cross mask\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    Progressive mask
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Progressive mask\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Progressive mask\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Progressive mask\noisy_fileid_2_01326_05303_230_04069_1635_snr11_tl-26.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Progressive mask\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
+    </div>
+  </td>
+</tr>
+</table>
+</div>
+
+
+<div>
+<p>
+  <b style="font-size: 22px;">Conclusion: </b> <br>
+  <b>1)</b> Compared PESQ with baseline, the random mask reconstruction on STGCSEN frame mask shows the large improvement. <br>
+  <b>2)</b> Compared PESQ with different mask programs, our network has the best reconstruction performance on frame mask. <br>
+   So the more severely the random mask masks the spectrogram, the better robust the generator will perform, especially when facing with unknown dynamic environment. 
+</p>
+</div>
+
+<div class="spacer"></div>
+
+<div>
+<h2><strong>B.Experiment on the effectiveness of random mask reconstruction module and SV module in CHiME-3</strong></h2>
+</div>
+
+<div  class="table-name">
+<strong>Table 2</strong> 
+Comparison and ablation experiment results in multiple noisy scenes in CHiME-3
+</div>
+<!-- <div>  
+<table class="my-table2">
+  <tbody>
+    <tr>
+      <th width="10%"></th>
+      <th width="10%"></th>
+      <th width="10%"></th>
+      <th width="10%"></th>
+      <th width="10%">PESQ</th>
+      <th width="20%"></th>
+      <th width="20%"></th>
+      
+    
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td ></td>
+      <td ></td>
+      <td >BUS</td>
+      <td >CAF</td>
+      <td >PED</td>
+      <td >STR</td>
+      <td >Avg.</td>
+    
+    </tr>
+  </tbody> 
+</table>
+
+<table class="middle2-table">
+    <tr>
+      <th rowspan="5", scope='one'>Supervised learning</th>
+      <th scope='col'>Noisy(channel 1)</th>
+      <td>1.2228±0.1197</td>
+      <td>1.1157±0.0460</td>
+      <td>1.1227±0.0710</td>
+      <td>1.1503±0.0810</td>
+      <td>1.1552±0.0959</td>
+    </tr>
+    <tr>
+      <th scope='col'>CNN</th>
+      <td>1.6300±0.2162</td>
+      <td>1.4655±0.1301</td>
+      <td>1.5168±0.2120</td>
+      <td>1.6003±0.2469</td>
+      <td>1.5564±0.2145</td>
+    </tr>
+    <tr>
+      <th scope='col'>LSTM-IPD</th>
+      <td>1.9105±0.4108</td>
+      <td>1.4864±0.1613</td>
+      <td>1.5117±0.2760</td>
+      <td>1.6558±0.3446</td>
+      <td>1.6442±0.3590</td>
+    </tr>
+    <tr>
+      <th scope='col'>UNet-GCN</th>
+      <td>1.6131±0.2341</td>
+      <td>1.4136±0.1255</td>
+      <td>1.4724±0.2129</td>
+      <td>1.5632±0.2407</td>
+      <td>1.5178±0.2241</td>
+    </tr>
+    <tr>
+      <th scope='one'>STGCSEN</th>
+      <td scope='row'>2.0381±0.2988</td>
+      <td scope='row'>1.7703±0.1969</td>
+      <td scope='row' >1.7272±0.3291</td>
+      <td scope='row'>1.9593±0.3160</td>
+      <td scope='row'>1.8764±0.3216</td>
+    </tr>
+    <tr>
+      <th scope='one', rowspan="4">Self-supervised learning</th>
+      <th scope='col'>MetricGAN-U</th>
+      <td>1.2138±0.1127</td>
+      <td>1.2049±0.0738</td>
+      <td>1.2624±0.1355</td>
+      <td>1.2407±0.1420</td>
+      <td>1.2325±0.1229</td>
+    </tr>
+    <tr>
+      <th scope='col'>MetricGAN-U-SV</th>
+      <td>1.5853±0.1762</td>
+      <td>1.5214±0.2067</td>
+      <td>1.5438±0.2713</td>
+      <td>1.5254±0.2307</td>
+      <td>1.5458±0.0628</td>
+    </tr>
+    <tr>
+      <th scope='col'>STGCSEN-SV(without 3D mask)</th>
+      <td>2.0350±0.2730</td>
+      <td>1.7981±0.1920</td>
+      <td>1.8130±0.3279</td>
+      <td>1.9480±0.3257</td>
+      <td>1.8991±0.3056</td>
+    </tr>
+    <tr>
+      <th scope='one'>STGCSEN-SV</th>
+      <td scope='row'>2.0353±0.2676</td>
+      <td scope='row'>1.8067±0.1941</td>
+      <td scope='row'>1.8205±0.3213</td>
+      <td scope='row'>1.9526±0.3220</td>
+      <td scope='row'>1.9042±0.3006</td>
+    </tr>
+  </tbody>
+</table>
+</div> -->
+<div>  
+<table class="my-table2">
+  <thead>
+    <tr>
+      <td></td>
+      <td scope="rol"></td>
+      <td scope="rol"></td>
+      <td ></td>
+      <td><b>PESQ</b></td>
+      <td></td>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td scope="rol"></td>
+      <td scope="rol"><b>BUS</b></td>
+      <td><b>CAF</b></td>
+      <td><b>PED</b></td>
+      <td><b>STR</b></td>
+      <td><b>Avg.</b></td>
+    </tr>
+    <tr>
+      <th rowspan="5",scope="row">Supervised learning</th>
+      <th >Noisy(channel 1)</th>
+      <td>1.2228±0.1197</td>
+      <td>1.1157±0.0460</td>
+      <td>1.1227±0.0710</td>
+      <td>1.1503±0.0810</td>
+      <td>1.1552±0.0959</td>
+    </tr>
+    <tr>
+      <th>CNN</th>
+      <td>1.6300±0.2162</td>
+      <td>1.4655±0.1301</td>
+      <td>1.5168±0.2120</td>
+      <td>1.6003±0.2469</td>
+      <td>1.5564±0.2145</td>
+    </tr>
+    <tr>
+      <th>LSTM-IPD</th>
+      <td>1.9105±0.4108</td>
+      <td>1.4864±0.1613</td>
+      <td>1.5117±0.2760</td>
+      <td>1.6558±0.3446</td>
+      <td>1.6442±0.3590</td>
+    </tr>
+    <tr>
+      <th>UNet-GCN</th>
+      <td>1.6131±0.2341</td>
+      <td>1.4136±0.1255</td>
+      <td>1.4724±0.2129</td>
+      <td>1.5632±0.2407</td>
+      <td>1.5178±0.2241</td>
+    </tr>
+    <tr>
+      <th scope="row">STGCSEN</th>
+      <td scope='row'>2.0381±0.2988</td>
+      <td scope='row'>1.7703±0.1969</td>
+      <td scope='row'>1.7272±0.3291</td>
+      <td scope='row'>1.9593±0.3160</td>
+      <td scope='row'>1.8764±0.3216</td>
+    </tr>
+    <tr>
+      <th rowspan="4",scope="top">Self-supervised learning</th>
+      <th>MetricGAN-U</th>
+      <td>1.2138±0.1127</td>
+      <td>1.2049±0.0738</td>
+      <td>1.2624±0.1355</td>
+      <td>1.2407±0.1420</td>
+      <td>1.2325±0.1229</td>
+    </tr>
+    <tr>
+      <th>MetricGAN-U-SV</th>
+      <td>1.5853±0.1762</td>
+      <td>1.5214±0.2067</td>
+      <td>1.5438±0.2713</td>
+      <td>1.5254±0.2307</td>
+      <td>1.5458±0.0628</td>
+    </tr>
+    <tr>
+      <th>STGCSEN-SV(without 3D mask)</th>
+      <td>2.0350±0.2730</td>
+      <td>1.7981±0.1920</td>
+      <td>1.8130±0.3279</td>
+      <td>1.9480±0.3257</td>
+      <td>1.8991±0.3056</td>
+    </tr>
+    <tr>
+      <th>STGCSEN-SV</th>
+      <td>2.0353±0.2676</td>
+      <td>1.8067±0.1941</td>
+      <td>1.8205±0.3213</td>
+      <td>1.9526±0.3220</td>
+      <td>1.9042±0.3006</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+<div class="spacer"></div>  
+<div class="spacer"></div> 
+<div class="spacer"></div> 
+<div class="spacer"></div> 
+<div align="center">
+  <img
+  class="fit-picture2"
+  src="结果图.png" />
+</div>
+<div  class="table-name">
+  <strong>Fig.2</strong> DNSMOS results in different scenes of CHiME-3 
+</div>
+
+
+<div class="spacer"></div>  
+<div class="spacer"></div> 
+<div class="spacer"></div> 
+<div class="spacer"></div> 
+<!--*****************************BUS**************************-->
+
+<div class="spacer"></div> 
+<div class="spacer"></div> 
+<div>
+  <div  class="table-name">
+    
+    Wav samples to show the effectiveness of random mask reconstruction module and SV module in the BUS scene
+  </div>
+
+<div>
+<table>
+  <tr>
+    <th> </th>
+    <td>sample1 </td>
+     <td>sample2 </td>
+     <td>sample3 </td>
+     <td>sample4 </td>
+      </tr>
   <tr>
     <td>
       clean
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\clean\clean_fileid_6.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\clean\clean_fileid_0.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\clean\clean_fileid_11.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\clean\clean_fileid_13.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\clean\clean_fileid_14.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\clean\clean_fileid_25.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\clean\clean_fileid_23.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\clean\clean_fileid_29.wav"></audio>
       </div>
     </td>
   </tr>
 
     <tr>
     <td>
-      noisy
+      Noisy
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\noisy\noisy_fileid_6.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\noisy\noisy_fileid_0.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\noisy\noisy_fileid_11.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\noisy\noisy_fileid_13.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\noisy\noisy_fileid_14.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\noisy\noisy_fileid_25.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\noisy\noisy_fileid_23.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\noisy\noisy_fileid_29.wav"></audio>
       </div>
     </td>
   </tr>
@@ -944,73 +577,74 @@
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\CNN\noisy_fileid_6.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\CNN\noisy_fileid_0.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\CNN\noisy_fileid_11.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\CNN\noisy_fileid_13.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\CNN\noisy_fileid_14.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\CNN\noisy_fileid_25.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\CNN\noisy_fileid_23.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\CNN\noisy_fileid_29.wav"></audio>
       </div>
     </td>
-  </tr> 
-  
+  </tr>
+
   <tr>
     <td>
       LSTM-IPD
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\LSTM_IPD\noisy_fileid_6.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\LSTM_IPD\noisy_fileid_0.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\LSTM_IPD\noisy_fileid_11.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\LSTM_IPD\noisy_fileid_13.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\LSTM_IPD\noisy_fileid_14.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\LSTM_IPD\noisy_fileid_25.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\LSTM_IPD\noisy_fileid_23.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\LSTM_IPD\noisy_fileid_29.wav"></audio>
       </div>
     </td>
   </tr>
+ 
   <tr>
     <td>
-      UNet_GCN
+      UNet-GCN
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\UNet_GCN\UNet_GCN_fileid_6.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\UNet_GCN\UNet_GCN_fileid_0.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\UNet_GCN\UNet_GCN_fileid_11.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\UNet_GCN\UNet_GCN_fileid_13.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\UNet_GCN\UNet_GCN_fileid_14.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\UNet_GCN\UNet_GCN_fileid_25.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\UNet_GCN\UNet_GCN_fileid_23.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\UNet_GCN\UNet_GCN_fileid_29.wav"></audio>
       </div>
     </td>
   </tr>
@@ -1020,97 +654,97 @@
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\STGCSEN\enhanced_STGCSEN_fileid_6.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\STGCSEN\enhanced_STGCSEN_fileid_0.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\STGCSEN\enhanced_STGCSEN_fileid_11.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\STGCSEN\enhanced_STGCSEN_fileid_13.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\STGCSEN\enhanced_STGCSEN_fileid_14.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\STGCSEN\enhanced_STGCSEN_fileid_25.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\STGCSEN\enhanced_STGCSEN_fileid_23.wav"></audio>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      MetricGAN_U
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\MetricGAN_U\enhanced_MeriGan_fileid_6_caf.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\MetricGAN_U\enhanced_MeriGan_fileid_11_caf.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\MetricGAN_U\enhanced_MeriGan_fileid_14_caf.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\MetricGAN_U\enhanced_MeriGan_fileid_23_caf.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\STGCSEN\enhanced_STGCSEN_fileid_29.wav"></audio>
       </div>
     </td>
   </tr>
   <tr>
     <td>
-      MetricGAN_U_SV
+      MetricGAN-U
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\MetricGAN_U_SV\enhanced_STGCSEN_fileid_6.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\MetricGAN_U\enhanced_MeriGan_fileid_0_bus.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\MetricGAN_U_SV\enhanced_STGCSEN_fileid_11.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\MetricGAN_U\enhanced_MeriGan_fileid_13_bus.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\MetricGAN_U_SV\enhanced_STGCSEN_fileid_14.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\MetricGAN_U\enhanced_MeriGan_fileid_25_bus.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\MetricGAN_U_SV\enhanced_STGCSEN_fileid_23.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\MetricGAN_U\enhanced_MeriGan_fileid_29_bus.wav"></audio>
       </div>
     </td>
   </tr>
   <tr>
     <td>
-      STGCSEN_SV_OUTMASK
+      MetricGAN-U-SV
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_6.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\MetricGAN_U_SV\enhanced_STGCSEN_fileid_0.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_11.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\MetricGAN_U_SV\enhanced_STGCSEN_fileid_13.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_14.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\MetricGAN_U_SV\enhanced_STGCSEN_fileid_25.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_23.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\MetricGAN_U_SV\enhanced_STGCSEN_fileid_29.wav"></audio>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      STGCSEN-SV(without 3D mask)
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE\BUS\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_0.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE\BUS\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_13.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE\BUS\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_25.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE\BUS\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_29.wav"></audio>
       </div>
     </td>
   </tr>
@@ -1118,576 +752,1004 @@
 
   <tr>
     <td>
-      STGCSEN_SV
+      STGCSEN-SV
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\STGCSEN_SV\enhanced_STGCSEN_fileid_6.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\STGCSEN_SV\enhanced_STGCSEN_fileid_0.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\STGCSEN_SV\enhanced_STGCSEN_fileid_11.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\STGCSEN_SV\enhanced_STGCSEN_fileid_13.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\STGCSEN_SV\enhanced_STGCSEN_fileid_14.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\STGCSEN_SV\enhanced_STGCSEN_fileid_25.wav"></audio>
       </div>
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\CAF\STGCSEN_SV\enhanced_STGCSEN_fileid_23.wav"></audio>
+        <audio controls src="wav\wav_SE\BUS\STGCSEN_SV\enhanced_STGCSEN_fileid_29.wav"></audio>
       </div>
     </td>
   </tr>
+</table>
+</div>
+
+<!--***********************CAF******************************-->
+<div class="spacer"></div> 
+<div class="spacer"></div> 
+<div>
+<div  class="table-name">
+   
+  Wav samples to show the effectiveness of random mask reconstruction module and SV module in the CAF scene
+</div>
+</div>
+<div>
+<table>
+  <tr>
+    <th> </th>
+    <td>sample1 </td>
+     <td>sample2 </td>
+     <td>sample3 </td>
+     <td>sample4 </td>
+      </tr>
+<tr>
+  <td>
+    clean
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\clean\clean_fileid_6.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\clean\clean_fileid_11.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\clean\clean_fileid_14.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\clean\clean_fileid_23.wav"></audio>
+    </div>
+  </td>
+</tr>
+
+  <tr>
+  <td>
+    Noisy
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\noisy\noisy_fileid_6.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\noisy\noisy_fileid_11.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\noisy\noisy_fileid_14.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\noisy\noisy_fileid_23.wav"></audio>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    CNN
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\CNN\noisy_fileid_6.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\CNN\noisy_fileid_11.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\CNN\noisy_fileid_14.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\CNN\noisy_fileid_23.wav"></audio>
+    </div>
+  </td>
+</tr> 
+
+<tr>
+  <td>
+    LSTM-IPD
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\LSTM_IPD\noisy_fileid_6.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\LSTM_IPD\noisy_fileid_11.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\LSTM_IPD\noisy_fileid_14.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\LSTM_IPD\noisy_fileid_23.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    UNet-GCN
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\UNet_GCN\UNet_GCN_fileid_6.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\UNet_GCN\UNet_GCN_fileid_11.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\UNet_GCN\UNet_GCN_fileid_14.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\UNet_GCN\UNet_GCN_fileid_23.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    STGCSEN
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\STGCSEN\enhanced_STGCSEN_fileid_6.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\STGCSEN\enhanced_STGCSEN_fileid_11.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\STGCSEN\enhanced_STGCSEN_fileid_14.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\STGCSEN\enhanced_STGCSEN_fileid_23.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    MetricGAN-U
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\MetricGAN_U\enhanced_MeriGan_fileid_6_caf.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\MetricGAN_U\enhanced_MeriGan_fileid_11_caf.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\MetricGAN_U\enhanced_MeriGan_fileid_14_caf.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\MetricGAN_U\enhanced_MeriGan_fileid_23_caf.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    MetricGAN-U-SV
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\MetricGAN_U_SV\enhanced_STGCSEN_fileid_6.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\MetricGAN_U_SV\enhanced_STGCSEN_fileid_11.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\MetricGAN_U_SV\enhanced_STGCSEN_fileid_14.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\MetricGAN_U_SV\enhanced_STGCSEN_fileid_23.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    STGCSEN-SV(without 3D mask)
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_6.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_11.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_14.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_23.wav"></audio>
+    </div>
+  </td>
+</tr>
+
+
+<tr>
+  <td>
+    STGCSEN-SV
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\STGCSEN_SV\enhanced_STGCSEN_fileid_6.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\STGCSEN_SV\enhanced_STGCSEN_fileid_11.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\STGCSEN_SV\enhanced_STGCSEN_fileid_14.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\CAF\STGCSEN_SV\enhanced_STGCSEN_fileid_23.wav"></audio>
+    </div>
+  </td>
+</tr>
 </table>
 </div>
 
 <!--***********************PED******************************-->
+<div class="spacer"></div> 
+<div class="spacer"></div> 
 <div>
-  <div  class="table-name">
-    <strong>Table 5-3</strong> 
-    Wav samples for speech enhancement-PED
-  </div>
+<div  class="table-name">
+  
+  Wav samples to show the effectiveness of random mask reconstruction module and SV module in the PED scene
+</div>
 </div>
 <div>
 <table>
   <tr>
-    <td>
-      clean
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\clean\clean_fileid_12.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\clean\clean_fileid_13.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\clean\clean_fileid_28.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\clean\clean_fileid_31.wav"></audio>
-      </div>
-    </td>
-  </tr>
-
-    <tr>
-    <td>
-      noisy
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\noisy\noisy_fileid_12.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\noisy\noisy_fileid_13.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\noisy\noisy_fileid_28.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\noisy\noisy_fileid_31.wav"></audio>
-      </div>
-    </td>
-  </tr>
+    <th> </th>
+    <td>sample1 </td>
+     <td>sample2 </td>
+     <td>sample3 </td>
+     <td>sample4 </td>
+      </tr>
+<tr>
+  <td>
+    clean
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\clean\clean_fileid_12.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\clean\clean_fileid_13.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\clean\clean_fileid_28.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\clean\clean_fileid_31.wav"></audio>
+    </div>
+  </td>
+</tr>
 
   <tr>
-    <td>
-      CNN
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\CNN\noisy_fileid_12.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\CNN\noisy_fileid_13.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\CNN\noisy_fileid_28.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\CNN\noisy_fileid_31.wav"></audio>
-      </div>
-    </td>
-  </tr>
+  <td>
+    Noisy
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\noisy\noisy_fileid_12.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\noisy\noisy_fileid_13.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\noisy\noisy_fileid_28.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\noisy\noisy_fileid_31.wav"></audio>
+    </div>
+  </td>
+</tr>
 
-  <tr>
-    <td>
-      LSTM-IPD
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\LSTM_IPD\noisy_fileid_12.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\LSTM_IPD\noisy_fileid_13.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\LSTM_IPD\noisy_fileid_28.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\LSTM_IPD\noisy_fileid_31.wav"></audio>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      UNet_GCN
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\UNet_GCN\UNet_GCN_fileid_12.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\UNet_GCN\UNet_GCN_fileid_13.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\UNet_GCN\UNet_GCN_fileid_28.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\UNet_GCN\UNet_GCN_fileid_31.wav"></audio>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      STGCSEN
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\STGCSEN\enhanced_STGCSEN_fileid_12.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\STGCSEN\enhanced_STGCSEN_fileid_13.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\STGCSEN\enhanced_STGCSEN_fileid_28.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\STGCSEN\enhanced_STGCSEN_fileid_31.wav"></audio>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      MetricGAN_U
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\MetricGAN_U\enhanced_MeriGan_fileid_12_ped.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\MetricGAN_U\enhanced_MeriGan_fileid_13_ped.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\MetricGAN_U\enhanced_MeriGan_fileid_28_ped.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\MetricGAN_U\enhanced_MeriGan_fileid_31_ped.wav"></audio>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      MetricGAN_U_SV
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\MetricGAN_U_SV\enhanced_STGCSEN_fileid_12.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\MetricGAN_U_SV\enhanced_STGCSEN_fileid_13.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\MetricGAN_U_SV\enhanced_STGCSEN_fileid_28.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\MetricGAN_U_SV\enhanced_STGCSEN_fileid_31.wav"></audio>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      STGCSEN_SV_OUTMASK
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_12.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_13.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_28.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_31.wav"></audio>
-      </div>
-    </td>
-  </tr>
+<tr>
+  <td>
+    CNN
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\CNN\noisy_fileid_12.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\CNN\noisy_fileid_13.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\CNN\noisy_fileid_28.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\CNN\noisy_fileid_31.wav"></audio>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    LSTM-IPD
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\LSTM_IPD\noisy_fileid_12.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\LSTM_IPD\noisy_fileid_13.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\LSTM_IPD\noisy_fileid_28.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\LSTM_IPD\noisy_fileid_31.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    UNet-GCN
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\UNet_GCN\UNet_GCN_fileid_12.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\UNet_GCN\UNet_GCN_fileid_13.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\UNet_GCN\UNet_GCN_fileid_28.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\UNet_GCN\UNet_GCN_fileid_31.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    STGCSEN
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\STGCSEN\enhanced_STGCSEN_fileid_12.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\STGCSEN\enhanced_STGCSEN_fileid_13.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\STGCSEN\enhanced_STGCSEN_fileid_28.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\STGCSEN\enhanced_STGCSEN_fileid_31.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    MetricGAN-U
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\MetricGAN_U\enhanced_MeriGan_fileid_12_ped.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\MetricGAN_U\enhanced_MeriGan_fileid_13_ped.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\MetricGAN_U\enhanced_MeriGan_fileid_28_ped.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\MetricGAN_U\enhanced_MeriGan_fileid_31_ped.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    MetricGAN-U-SV
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\MetricGAN_U_SV\enhanced_STGCSEN_fileid_12.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\MetricGAN_U_SV\enhanced_STGCSEN_fileid_13.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\MetricGAN_U_SV\enhanced_STGCSEN_fileid_28.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\MetricGAN_U_SV\enhanced_STGCSEN_fileid_31.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    STGCSEN-SV(without 3D mask)
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_12.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_13.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_28.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_31.wav"></audio>
+    </div>
+  </td>
+</tr>
 
 
-  <tr>
-    <td>
-      STGCSEN_SV
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\STGCSEN_SV\enhanced_STGCSEN_fileid_12.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\STGCSEN_SV\enhanced_STGCSEN_fileid_13.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\STGCSEN_SV\enhanced_STGCSEN_fileid_28.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\PED\STGCSEN_SV\enhanced_STGCSEN_fileid_31.wav"></audio>
-      </div>
-    </td>
-  </tr>
+<tr>
+  <td>
+    STGCSEN-SV
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\STGCSEN_SV\enhanced_STGCSEN_fileid_12.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\STGCSEN_SV\enhanced_STGCSEN_fileid_13.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\STGCSEN_SV\enhanced_STGCSEN_fileid_28.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\PED\STGCSEN_SV\enhanced_STGCSEN_fileid_31.wav"></audio>
+    </div>
+  </td>
+</tr>
 </table>
 </div>
 
 
 <!--***********************STR******************************-->
+<div class="spacer"></div> 
+<div class="spacer"></div> 
 <div>
-  <div  class="table-name">
-    <strong>Table 5-4</strong> 
-    Wav samples for speech enhancement-STR
-  </div>
+<div  class="table-name">
+  
+  Wav samples to show the effectiveness of random mask reconstruction module and SV module in the STR scene
+</div>
 </div>
 <div>
 <table>
   <tr>
-    <td>
-      clean
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\clean\clean_fileid_1.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\clean\clean_fileid_3.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\clean\clean_fileid_18.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\clean\clean_fileid_22.wav"></audio>
-      </div>
-    </td>
-  </tr>
-
-    <tr>
-    <td>
-      noisy
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\noisy\noisy_fileid_1.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\noisy\noisy_fileid_3.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\noisy\noisy_fileid_18.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\noisy\noisy_fileid_22.wav"></audio>
-      </div>
-    </td>
-  </tr>
+    <th> </th>
+    <td>sample1 </td>
+     <td>sample2 </td>
+     <td>sample3 </td>
+     <td>sample4 </td>
+      </tr>
+<tr>
+  <td>
+    clean
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\clean\clean_fileid_1.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\clean\clean_fileid_3.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\clean\clean_fileid_18.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\clean\clean_fileid_22.wav"></audio>
+    </div>
+  </td>
+</tr>
 
   <tr>
-    <td>
-      CNN
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\CNN\noisy_fileid_1.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\CNN\noisy_fileid_3.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\CNN\noisy_fileid_18.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\CNN\noisy_fileid_22.wav"></audio>
-      </div>
-    </td>
-  </tr>
+  <td>
+    Noisy
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\noisy\noisy_fileid_1.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\noisy\noisy_fileid_3.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\noisy\noisy_fileid_18.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\noisy\noisy_fileid_22.wav"></audio>
+    </div>
+  </td>
+</tr>
 
-  <tr>
-    <td>
-      LSTM-IPD
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\LSTM_IPD\noisy_fileid_1.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\LSTM_IPD\noisy_fileid_3.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\LSTM_IPD\noisy_fileid_18.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\LSTM_IPD\noisy_fileid_22.wav"></audio>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      UNet_GCN
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\UNet_GCN\UNet_GCN_fileid_1.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\UNet_GCN\UNet_GCN_fileid_3.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\UNet_GCN\UNet_GCN_fileid_18.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\UNet_GCN\UNet_GCN_fileid_22.wav"></audio>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      STGCSEN
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\STGCSEN\enhanced_STGCSEN_fileid_1.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\STGCSEN\enhanced_STGCSEN_fileid_3.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\STGCSEN\enhanced_STGCSEN_fileid_18.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\STGCSEN\enhanced_STGCSEN_fileid_22.wav"></audio>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      MetricGAN_U
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\MetricGAN_U\enhanced_MeriGan_fileid_1_str.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\MetricGAN_U\enhanced_MeriGan_fileid_3_str.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\MetricGAN_U\enhanced_MeriGan_fileid_18_str.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\MetricGAN_U\enhanced_MeriGan_fileid_22_str.wav"></audio>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      MetricGAN_U_SV
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\MetricGAN_U_SV\enhanced_STGCSEN_fileid_1.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\MetricGAN_U_SV\enhanced_STGCSEN_fileid_3.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\MetricGAN_U_SV\enhanced_STGCSEN_fileid_18.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\MetricGAN_U_SV\enhanced_STGCSEN_fileid_22.wav"></audio>
-      </div>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      STGCSEN_SV_OUTMASK
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_1.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_3.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_18.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_22.wav"></audio>
-      </div>
-    </td>
-  </tr>
+<tr>
+  <td>
+    CNN
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\CNN\noisy_fileid_1.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\CNN\noisy_fileid_3.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\CNN\noisy_fileid_18.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\CNN\noisy_fileid_22.wav"></audio>
+    </div>
+  </td>
+</tr>
 
-
-  <tr>
-    <td>
-      STGCSEN_SV
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\STGCSEN_SV\enhanced_STGCSEN_fileid_1.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\STGCSEN_SV\enhanced_STGCSEN_fileid_3.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\STGCSEN_SV\enhanced_STGCSEN_fileid_18.wav"></audio>
-      </div>
-    </td>
-    <td>
-      <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE\STR\STGCSEN_SV\enhanced_STGCSEN_fileid_22.wav"></audio>
-      </div>
-    </td>
-  </tr>
+<tr>
+  <td>
+    LSTM-IPD
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\LSTM_IPD\noisy_fileid_1.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\LSTM_IPD\noisy_fileid_3.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\LSTM_IPD\noisy_fileid_18.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\LSTM_IPD\noisy_fileid_22.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    UNet-GCN
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\UNet_GCN\UNet_GCN_fileid_1.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\UNet_GCN\UNet_GCN_fileid_3.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\UNet_GCN\UNet_GCN_fileid_18.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\UNet_GCN\UNet_GCN_fileid_22.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    STGCSEN
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\STGCSEN\enhanced_STGCSEN_fileid_1.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\STGCSEN\enhanced_STGCSEN_fileid_3.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\STGCSEN\enhanced_STGCSEN_fileid_18.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\STGCSEN\enhanced_STGCSEN_fileid_22.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    MetricGAN-U
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\MetricGAN_U\enhanced_MeriGan_fileid_1_str.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\MetricGAN_U\enhanced_MeriGan_fileid_3_str.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\MetricGAN_U\enhanced_MeriGan_fileid_18_str.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\MetricGAN_U\enhanced_MeriGan_fileid_22_str.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    MetricGAN-U-SV
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\MetricGAN_U_SV\enhanced_STGCSEN_fileid_1.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\MetricGAN_U_SV\enhanced_STGCSEN_fileid_3.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\MetricGAN_U_SV\enhanced_STGCSEN_fileid_18.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\MetricGAN_U_SV\enhanced_STGCSEN_fileid_22.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    STGCSEN-SV(without 3D mask)
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_1.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_3.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_18.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\STGCSEN_SV_OUTMASK\enhanced_STGCSEN_fileid_22.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    STGCSEN-SV
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\STGCSEN_SV\enhanced_STGCSEN_fileid_1.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\STGCSEN_SV\enhanced_STGCSEN_fileid_3.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\STGCSEN_SV\enhanced_STGCSEN_fileid_18.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_SE\STR\STGCSEN_SV\enhanced_STGCSEN_fileid_22.wav"></audio>
+    </div>
+  </td>
+</tr>
 </table>
 </div>
 
 
 <div>
-  <div  class="table-name">
-    <strong>Table 5-5</strong> 
-    Wav samples for speech enhancement-cocktail party with interferences (SNR=10dB)
-  </div>
+<p>
+  <b style="font-size: 22px;">Conclusion:</b> <br>
+  <b>1)</b>When compared with the noisy data, our STGCSEN-SV shows average more than 60% improvement over all scenes (BUS: 66.45%, CAF: 61.93%, PED: 62.15%, STR: 69.75%).<br>
+  <b>2)</b> When compared the average PESQ with the supervised baselines(CNN, LSTM-IPD, UNet-GCN), our model improves 22.35%, 15.81%, 25.46%. Compared with STGCSEN, we can find that the performance of STGCSEN-SV on CAF and PED also has improvement. <br>
+  <b>3)</b>Compared with self-supervised baseline MetricGAN-U, STGCSEN-SV improves the noisy speech PESQ by an average of 58.16%.<br>
+  <b>4)</b>To show the effectiveness of the proposed SV extension, we adopt the same generator architecture with MetricGAN-U. The MetricGAN-U-SV has 27.12% improvement on the average PESQ compared with MetricGAN-U.<br>
+  <b>5)</b>Ablation experiment shows 0.45% improvement given by random mask reconstruction.<br>
+  Above all, the random mask reconstruction module and SV module in our STGCSEN-SV framework have unique effectiveness in self-supervised speech enhancement. 
+  </p>
 </div>
+
+
 <div>
-<table>
+  <h2><strong>C.Experiment on the effectiveness of random mask reconstruction module and SV module in cocktail party</strong></h2>
+  </div>
+<div>
+
+<div  class="table-name">
+  <strong>Table 3</strong> 
+  Comparison experiment results in multiple noisy scenes in cocktail party 
+</div>
+
+<!-- <div>
+<table width="80%" class="head-table3" style="table-layout:fixed">
+  <tbody>
+    <tr>
+      <td width="5%"></td>
+      <th >With interfering persons(SNR=10dB)</th>
+      <td ><b>With interfering persons(SNR=15dB)</b></td>
+      <td ><b>With noises(SNR=10dB)</b></td>
+      <td ><b>With noises(SNR=15dB)</b></td>
+      <td ><b>Avg.</b></td>
+    </tr>
+  </tbody>
+</table>
+<table class="middle3-table">
+  <tbody>
+    <tr>
+      <th scope='col'>Noisy</th>
+      <td>1.1482±0.0587</td>
+      <td>1.2487±0.1058</td>
+      <td>1.2099±0.1710</td>
+      <td>1.3653±0.2536</td>
+      <td>1.2520±0.1835</td>
+    </tr>
+    <tr>
+      <th scope='col'>STGCSEN</th>
+      <td>1.5215±0.2065</td>
+      <td>1.8112±0.2016</td>
+      <td>1.6705±0.2498</td>
+      <td>1.8278±0.2316</td>
+      <td>1.7077±0.2552</td>
+    </tr>
+    <tr>
+      <th scope='one'>STGCSEN-SV</th>
+      <td scope="row">1.5366±0.2061</td>
+      <td scope="row">1.8431±0.2055</td>
+      <td scope="row">1.6962±0.2609</td>
+      <td scope="row">1.8825±0.2294</td>
+      <td scope="row">1.7963±0.2644</td>
+    </tr>
+  </tbody>
+</table>
+</div> -->
+
+<div>
+<table class="my-table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Interferences scene(SNR=10dB)</th>
+      <th>Interferences scene(SNR=15dB)</th>
+      <th>Background noises scene(SNR=10dB)</th>
+      <th>Background noises scene(SNR=15dB)</th>
+      <th>Avg.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Noisy</b>
+      <td>1.1482±0.0587</td>
+      <td>1.2487±0.1058</td>
+      <td>1.2099±0.1710</td>
+      <td>1.3653±0.2536</td>
+      <td>1.2520±0.1835</td>
+    </tr>
+    <tr>
+      <td><b>MeteicGAN-U</b></td>
+      <td>1.2765±0.1161</td>
+      <td>1.4854±0.1635</td>
+      <td>1.3545±0.2700</td>
+      <td>1.5812±0.3303</td>
+      <td>1.4244±0.2633</td>
+    </tr>
+    <tr>
+      <td><b>MetricGAN-U-SV</b>
+      <td>1.3447±0.1315</td>
+      <td>1.6521±0.1825</td>
+      <td>1.4953±0.2400</td>
+      <td>1.6830±0.2313</td>
+      <td>1.5438±0.2423</td>
+    </tr>
+    <tr>
+      <td><b>STGCSEN</b></td>
+      <td>1.5215±0.2065</td>
+      <td>1.8112±0.2016</td>
+      <td>1.6705±0.2498</td>
+      <td>1.8278±0.2316</td>
+      <td>1.7077±0.2552</td>
+    </tr>
+    <tr>
+      <td><b>STGCSEN-SV</b></td>
+      <td>1.5366±0.2061</td>
+      <td>1.8431±0.2055</td>
+      <td>1.6962±0.2609</td>
+      <td>1.8825±0.2294</td>
+      <td>1.7963±0.2644</td>
+    </tr>
+        </tbody>
+</table>
+</div>
+
+<div class="spacer"></div>  
+<div class="spacer"></div> 
+<div class="spacer"></div> 
+<div class="spacer"></div> 
+<!--*******************************************************-->
+<div>
+  <div  class="table-name">
+     
+    Wav samples to show the effectiveness of random mask reconstruction module and SV module-cocktail party with interferences (SNR=10dB)
+  </div>
+  </div>
+  <div>
+  <table>
+    <tr>
+      <th> </th>
+      <td>sample1 </td>
+       <td>sample2 </td>
+       <td>sample3 </td>
+       <td>sample4 </td>
+        </tr>
+  <tr>
   <tr>
     <td>
       Clean
@@ -1713,7 +1775,7 @@
       </div>
     </td>
   </tr>
-
+  
     <tr>
     <td>
       Noisy
@@ -1739,7 +1801,59 @@
       </div>
     </td>
   </tr>
-
+  
+  <tr>
+    <td>
+      MetricGAN-U
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\MetricGAN-U\enhanced_MeriGan_fileid_1_01326_04069_23_05919_53_snr10_tl-17.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\MetricGAN-U\enhanced_MeriGan_fileid_8_01326_08897_8_00927_45_snr10_tl-33.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\MetricGAN-U\enhanced_MeriGan_fileid_16_01326_02124_43_07339_79_snr10_tl-24.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\MetricGAN-U\enhanced_MeriGan_fileid_21_01326_08897_48_05919_60_snr10_tl-24.wav"></audio>
+      </div>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      MetricGAN-U-SV
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\MetricGAN-U-SV\enhanced_STGCSEN_fileid_1_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\MetricGAN-U-SV\enhanced_STGCSEN_fileid_8_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\MetricGAN-U-SV\enhanced_STGCSEN_fileid_16_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\MetricGAN-U-SV\enhanced_STGCSEN_fileid_21_reader_01326.wav"></audio>
+      </div>
+    </td>
+  </tr>
+  
   <tr>
     <td>
       STGCSEN
@@ -1765,7 +1879,7 @@
       </div>
     </td>
   </tr>
-
+  
   <tr>
     <td>
       STGCSEN-SV
@@ -1787,21 +1901,31 @@
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE_cktp\itf_SNR15\STGCSEN-SV\enhanced_STGCSEN_fileid_41_reader_01326.wav"></audio>
+        <audio controls src="wav\wav_SE_cktp\itf_SNR10\STGCSEN_SV\enhanced_STGCSEN_fileid_21_reader_01326.wav"></audio>
       </div>
     </td>
   </tr>
-</table>
-</div>
-
-<div>
-  <div  class="table-name">
-    <strong>Table 5-6</strong> 
-    Wav samples for speech enhancement-cocktail party with interferences (SNR=15dB)
+  </table>
   </div>
-</div>
-<div>
-<table>
+<!--*******************************************************-->
+<div class="spacer"></div> 
+<div class="spacer"></div> 
+  <div>
+  <div  class="table-name">
+    
+    Wav samples to show the effectiveness of random mask reconstruction module and SV module-cocktail party with interferences (SNR=15dB)
+  </div>
+  </div>
+  <div>
+  <table>
+    <tr>
+      <th> </th>
+      <td>sample1 </td>
+       <td>sample2 </td>
+       <td>sample3 </td>
+       <td>sample4 </td>
+        </tr>
+  <tr>
   <tr>
     <td>
       Clean
@@ -1827,7 +1951,7 @@
       </div>
     </td>
   </tr>
-
+  
     <tr>
     <td>
       Noisy
@@ -1853,7 +1977,61 @@
       </div>
     </td>
   </tr>
-
+  
+    
+  <tr>
+    <td>
+      MetricGAN-U
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\MetricGAN-U\enhanced_MeriGan_fileid_12_01326_08897_71_05919_79_snr15_tl-25.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\MetricGAN-U\enhanced_MeriGan_fileid_18_01326_04069_61_08897_83_snr15_tl-29.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\MetricGAN-U\enhanced_MeriGan_fileid_27_01326_00927_61_07639_75_snr15_tl-27.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\MetricGAN-U\enhanced_MeriGan_fileid_41_01326_04069_22_03955_62_snr15_tl-27.wav"></audio>
+      </div>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      MetricGAN-U-SV
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\MetricGAN-U-SV\enhanced_STGCSEN_fileid_12_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\MetricGAN-U-SV\enhanced_STGCSEN_fileid_18_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\MetricGAN-U-SV\enhanced_STGCSEN_fileid_27_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\itf_SNR15\MetricGAN-U-SV\enhanced_STGCSEN_fileid_41_reader_01326.wav"></audio>
+      </div>
+    </td>
+  </tr>
+  
+  
   <tr>
     <td>
       STGCSEN
@@ -1879,7 +2057,7 @@
       </div>
     </td>
   </tr>
-
+  
   <tr>
     <td>
       STGCSEN-SV
@@ -1905,17 +2083,27 @@
       </div>
     </td>
   </tr>
-</table>
-</div>
-
-<div>
-  <div  class="table-name">
-    <strong>Table 5-7</strong> 
-    Wav samples for speech enhancement-cocktail party with background noises (SNR=10dB)
+  </table>
   </div>
-</div>
-<div>
-<table>
+<!--*******************************************************-->
+<div class="spacer"></div> 
+<div class="spacer"></div>   
+  <div>
+  <div  class="table-name">
+     
+    Wav samples to show the effectiveness of random mask reconstruction module and SV module-cocktail party with background noises (SNR=10dB)
+  </div>
+  </div>
+  <div>
+  <table>
+    <tr>
+      <th> </th>
+      <td>sample1 </td>
+       <td>sample2 </td>
+       <td>sample3 </td>
+       <td>sample4 </td>
+        </tr>
+  <tr>
   <tr>
     <td>
       Clean
@@ -1941,7 +2129,7 @@
       </div>
     </td>
   </tr>
-
+  
     <tr>
     <td>
       Noisy
@@ -1967,7 +2155,59 @@
       </div>
     </td>
   </tr>
-
+  
+  <tr>
+    <td>
+      MetricGAN-U
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\MetricGAN-U\enhanced_MeriGan_fileid_2_01326_door_wood_knock_66_clock_alarm_5_snr10_tl-23.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\MetricGAN-U\enhanced_MeriGan_fileid_3_01326_water_drops_52_footsteps_14_snr10_tl-17.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\MetricGAN-U\enhanced_MeriGan_fileid_9_01326_footsteps_15_water_drops_21_snr10_tl-32.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\MetricGAN-U\enhanced_MeriGan_fileid_14_01326_clock_alarm_47_mouse_click_97_snr10_tl-21.wav"></audio>
+      </div>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      MetricGAN-U-SV
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\MetricGAN-U-SV\enhanced_STGCSEN_fileid_2_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\MetricGAN-U-SV\enhanced_STGCSEN_fileid_3_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\MetricGAN-U-SV\enhanced_STGCSEN_fileid_9_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR10\MetricGAN-U-SV\enhanced_STGCSEN_fileid_14_reader_01326.wav"></audio>
+      </div>
+    </td>
+  </tr>
+  
   <tr>
     <td>
       STGCSEN
@@ -1993,7 +2233,7 @@
       </div>
     </td>
   </tr>
-
+  
   <tr>
     <td>
       STGCSEN-SV
@@ -2019,17 +2259,27 @@
       </div>
     </td>
   </tr>
-</table>
-</div>
-
-<div>
-  <div  class="table-name">
-    <strong>Table 5-7</strong> 
-    Wav samples for speech enhancement-cocktail party with interferences (SNR=15dB)
+  </table>
   </div>
-</div>
-<div>
-<table>
+<!--*******************************************************-->
+  <div class="spacer"></div> 
+<div class="spacer"></div>   
+  <div>
+  <div  class="table-name">
+     
+    Wav samples to show the effectiveness of random mask reconstruction module and SV module-cocktail party with background noises (SNR=15dB)
+  </div>
+  </div>
+  <div>
+  <table>
+    <tr>
+      <th> </th>
+      <td>sample1 </td>
+       <td>sample2 </td>
+       <td>sample3 </td>
+       <td>sample4 </td>
+        </tr>
+  <tr>
   <tr>
     <td>
       Clean
@@ -2055,7 +2305,7 @@
       </div>
     </td>
   </tr>
-
+  
     <tr>
     <td>
       Noisy
@@ -2081,7 +2331,59 @@
       </div>
     </td>
   </tr>
-
+  
+  <tr>
+    <td>
+      MetricGAN-U
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\MetricGAN-U\enhanced_MeriGan_fileid_4_01326_clapping_62_coughing_44_snr15_tl-27.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\MetricGAN-U\enhanced_MeriGan_fileid_8_01326_keyboard_typing_57_clock_alarm_40_snr15_tl-31.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\MetricGAN-U\enhanced_MeriGan_fileid_13_01326_dog_67_footsteps_66_snr15_tl-18.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\MetricGAN-U\enhanced_MeriGan_fileid_17_01326_clock_alarm_5_water_drops_81_snr15_tl-22.wav"></audio>
+      </div>
+    </td>
+  </tr>
+  
+  <tr>
+    <td>
+      MetricGAN-U-SV
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\MetricGAN-U-SV\enhanced_STGCSEN_fileid_4_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\MetricGAN-U-SV\enhanced_STGCSEN_fileid_8_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\MetricGAN-U-SV\enhanced_STGCSEN_fileid_13_reader_01326.wav"></audio>
+      </div>
+    </td>
+    <td>
+      <div class="audio-wrapper">
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\MetricGAN-U-SV\enhanced_STGCSEN_fileid_17_reader_01326.wav"></audio>
+      </div>
+    </td>
+  </tr>
+  
   <tr>
     <td>
       STGCSEN
@@ -2098,7 +2400,7 @@
     </td>
     <td>
       <div class="audio-wrapper">
-        <audio controls src="wav\wav_SE_cktp\itf_SNR15\STGCSEN\enhanced_STGCSEN_fileid_27_reader_01326.wav"></audio>
+        <audio controls src="wav\wav_SE_cktp\noise_SNR15\STGCSEN\enhanced_STGCSEN_fileid_13_reader_01326.wav"></audio>
       </div>
     </td>
     <td>
@@ -2107,7 +2409,7 @@
       </div>
     </td>
   </tr>
-
+  
   <tr>
     <td>
       STGCSEN-SV
@@ -2133,5 +2435,18 @@
       </div>
     </td>
   </tr>
-</table>
+  </table>
+  </div>
+
+<div>
+<p>
+  <b style="font-size: 22px;">Conclusion: </b> <br>
+  <b>1)</b> Compared with the noisy data, STGCSEN-SV shows 38.95% improvement on the average of all scenes (33.82%, 43.46%, 40.19% and 37.88%, separately). </br>
+  <b>2)</b> Compared the average PESQ with the supervised baseline STGCSEN, the performance of STGCSEN-SV has 1.87% improvement, which proves the effectiveness of our SV module. </br>  
+  <b>3)</b> Compared with MetricGAN-U, our SV module gives 8.38% improvement on  the average PESQ of all scenes, which demonstrates our SV module's effectiveness. </br>  
+  Above all, the experiment in cocktail party scenes proves the effectiveness of our modules in STGCSEN-SV framework.  
+  </p>
 </div>
+  
+
+
