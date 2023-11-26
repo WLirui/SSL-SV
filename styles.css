@@ -239,10 +239,14 @@
 
 
 /* 表头居中 */
-.table-name {
+.table-name1 {
     text-align: center;
   }
-
+/* 表头居中 */
+.table-name {
+  font-weight: bold;
+  text-align: left;
+}
 
   .spacer {
     height: 10px; /* 设置空白元素的高度 */

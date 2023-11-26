@@ -3,7 +3,8 @@
 </head>
 
 <h1>Self-Supervised Generative Network for Personalized Speech Enhancement</h1>
-<h2><strong>Authors:</strong> "Chi Yang, <a href="mailto:jjyu@bjtu.deu.cn">Jingjing Yu*</a>, Luyao Zhang, Lirui Wu"</h2>
+<h2><strong>Authors:</strong> Chi Yang, <a href="mailto:jjyu@bjtu.deu.cn">Jingjing Yu*</a>, Luyao Zhang, Lirui Wu</h2>
+Submitted to ICASSP2024
 
 
 <div align="center">
@@ -11,267 +12,29 @@
   class="fit-picture"
   src="系统框图.png" />
 </div>
-<div  class="table-name">
+<div  class="table-name1">
   <strong>Fig.1 </strong> Framework of proposed self-supervised generative network STGCSEN-SV for speech enhancement  
 </div>
 
+
+<div class="spacer"></div>
+<!--AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
+<!--AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
+<div style=font-size:27px> 
+  <strong>Experimental validations</strong>
+</div>
+
 <div class="spacer"></div>
 
 <div>
-<h2><strong>A.Experiment on the robustness of generator against unknown multi-source dynamic scene with different masking</strong></h2>
-
-<div  class="table-name">
-    <strong>Table 1</strong> 
-    Comparison experiment on different mask methods and the same mask ratio 30~40%
-</div>
+<h2><strong>A. Experiments on the effectiveness of proposed self-supervised adversarial learning framework with SV in CHiME-3</strong></h2>
 </div>
 
-
-<div>
-<table class="head-table">
-  <tbody>
-    <tr>
-      <td width="40%"></td>
-      <th width="20%">MSE</th>
-      <td width="20%"><b>PESQ</b></td>
-      <td width="20%"><b>STOI</b></td>
-    </tr>
-  </tbody>
-</table>
-<table class="middle1-table">
-  <tbody>
-    <tr>
-      <th scope='col'>Original mixture</th>
-      <td>0.0</td>
-      <td>4.4674</td>
-      <td>1.0</td>
-    </tr>
+<div  class="table-name1">
   
-  
-    <tr>
-      <th scope="col">DAPC</th>
-      <td>0.1109±0.0417</td>
-      <td>1.3926±0.1060</td>
-      <td>0.8366±0.0350</td>
-    </tr>
-    <tr>
-      <th scope='col'>Point mask</th>
-      <td>0.0780±0.0209</td>
-      <td>2.4902±0.2093</td>
-      <td>0.9212±0.0190</td>
-    </tr>
-    <tr>
-      <th scope='col'>Frame mask</th>
-      <td>0.0789±0.0252</td>
-      <td>2.4972±0.2217</td>
-      <td>0.9141±0.0219</td>
-    </tr>
-    <tr>
-      <th scope='col'>Cross mask</th>
-      <td>0.0993±0.0203</td>
-      <td>2.1747±0.2326</td>
-      <td>0.9083±0.0228</td>
-    </tr>
-    <tr>
-      <th scope='one'>Progressive mask</th>
-      <td scope='row'>0.0741±0.0210</td>
-      <td scope='row'>2.4969±0.2142</td>
-      <td scope='row'>0.9247±0.0200</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+<strong>Table 1</strong> 
+Experimental results in multiple noisy scenes of CHiME-3
 
-<div class="spacer"></div>
-<div class="spacer"></div>
-<div class="spacer"></div>
-
-<div  class="table-name">
-  Wav samples for 3D mask reconstruction
-</div>
-<div class="spacer"></div>
-</div>
-<div>
-<table>
-  <tr>
-  <th> </th>
-  <td>sample1 </td>
-    <td>sample2 </td>
-    <td>sample3 </td>
-    <td>sample4 </td>
-    </tr>
-  <tr>
-  <td>
-    original mixture
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\original mixture\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
-    </div>
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\original mixture\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
-    </div>
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\original mixture\noisy_fileid_2_01326_05303_230_04069_1635_snr11_tl-26.wav"></audio>
-    </div>
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\original mixture\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
-    </div>
-  </td>
-</tr>
-<tr>
-  <td>
-    DAPC
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\DAPC\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
-    </div>
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\DAPC\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
-    </div>
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\DAPC\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
-    </div>
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\DAPC\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
-    </div>
-  </td>
-</tr>
-<tr>
-  <td>
-    Point mask
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\Point mask\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
-    </div>
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\Point mask\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
-    </div>
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\Point mask\noisy_fileid_2_01326_05303_230_04069_1635_snr11_tl-26.wav"></audio>
-    </div>
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\Point mask\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
-    </div>
-  </td>
-</tr>
-<tr>
-  <td>
-    Frame mask
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\Frame mask\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
-    </div>
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\Frame mask\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
-    </div>
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\Frame mask\noisy_fileid_2_01326_05303_230_04069_1635_snr11_tl-26.wav"></audio>
-    </div>
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\Frame mask\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
-    </div>
-  </td>
-</tr>
-<tr>
-  <td>
-    Cross mask
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\Cross mask\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
-    </div>
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\Cross mask\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
-    </div>
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\Cross mask\noisy_fileid_2_01326_05303_230_04069_1635_snr11_tl-26.wav"></audio>
-    </div>
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\Cross mask\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
-    </div>
-  </td>
-</tr>
-<tr>
-  <td>
-    Progressive mask
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\Progressive mask\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
-    </div>
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\Progressive mask\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
-    </div>
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\Progressive mask\noisy_fileid_2_01326_05303_230_04069_1635_snr11_tl-26.wav"></audio>
-    </div>
-  </td>
-  <td>
-    <div class="audio-wrapper">
-      <audio controls src="wav\wav_reconstrcution\Progressive mask\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
-    </div>
-  </td>
-</tr>
-</table>
-</div>
-
-
-<div>
-<p>
-  <b style="font-size: 22px;">Conclusion: </b> <br>
-  <b>1)</b> Compared PESQ with baseline, the random mask reconstruction on STGCSEN frame mask shows the large improvement. <br>
-  <b>2)</b> Compared PESQ with different mask programs, our network has the best reconstruction performance on frame mask. <br>
-   So the more severely the random mask masks the spectrogram, the better robust the generator will perform, especially when facing with unknown dynamic environment. 
-</p>
-</div>
-
-<div class="spacer"></div>
-
-<div>
-<h2><strong>B.Experiment on the effectiveness of random mask reconstruction module and SV module in CHiME-3</strong></h2>
-</div>
-
-<div  class="table-name">
-<strong>Table 2</strong> 
-Comparison and ablation experiment results in multiple noisy scenes in CHiME-3
 </div>
 <!-- <div>  
 <table class="my-table2">
@@ -385,7 +148,7 @@ Comparison and ablation experiment results in multiple noisy scenes in CHiME-3
   <thead>
     <tr>
       <td></td>
-      <td scope="rol"></td>
+      <td ></td>
       <td scope="rol"></td>
       <td ></td>
       <td><b>PESQ</b></td>
@@ -396,7 +159,7 @@ Comparison and ablation experiment results in multiple noisy scenes in CHiME-3
   <tbody>
     <tr>
       <td></td>
-      <td scope="rol"></td>
+      <td><b>Noisy scene</b></td>
       <td scope="rol"><b>BUS</b></td>
       <td><b>CAF</b></td>
       <td><b>PED</b></td>
@@ -491,7 +254,7 @@ Comparison and ablation experiment results in multiple noisy scenes in CHiME-3
   class="fit-picture2"
   src="结果图.png" />
 </div>
-<div  class="table-name">
+<div  class="table-name1">
   <strong>Fig.2</strong> DNSMOS results in different scenes of CHiME-3 
 </div>
 
@@ -505,23 +268,23 @@ Comparison and ablation experiment results in multiple noisy scenes in CHiME-3
 <div class="spacer"></div> 
 <div class="spacer"></div> 
 <div>
-  <div  class="table-name">
-    
-    Wav samples to show the effectiveness of random mask reconstruction module and SV module in the BUS scene
-  </div>
-
+  <table  >  
+      <h3><strong>    Audio clips in the BUS scene</strong></h3> 
+  </table>
+</div>
 <div>
 <table>
   <tr>
+  <tr>
     <th> </th>
-    <td>sample1 </td>
-     <td>sample2 </td>
-     <td>sample3 </td>
-     <td>sample4 </td>
+    <td>Sample1 </td>
+     <td>Sample2 </td>
+     <td>Sample3 </td>
+     <td>Sample4 </td>
       </tr>
   <tr>
     <td>
-      clean
+      Clean
     </td>
     <td>
       <div class="audio-wrapper">
@@ -782,23 +545,22 @@ Comparison and ablation experiment results in multiple noisy scenes in CHiME-3
 <div class="spacer"></div> 
 <div class="spacer"></div> 
 <div>
-<div  class="table-name">
-   
-  Wav samples to show the effectiveness of random mask reconstruction module and SV module in the CAF scene
-</div>
+  <table  >  
+    <h3><strong>    Audio clips in the CAF scene</strong></h3> 
+</table>
 </div>
 <div>
 <table>
   <tr>
     <th> </th>
-    <td>sample1 </td>
-     <td>sample2 </td>
-     <td>sample3 </td>
-     <td>sample4 </td>
+    <td>Sample1 </td>
+     <td>Sample2 </td>
+     <td>Sample3 </td>
+     <td>Sample4 </td>
       </tr>
 <tr>
   <td>
-    clean
+    Clean
   </td>
   <td>
     <div class="audio-wrapper">
@@ -1058,23 +820,22 @@ Comparison and ablation experiment results in multiple noisy scenes in CHiME-3
 <div class="spacer"></div> 
 <div class="spacer"></div> 
 <div>
-<div  class="table-name">
-  
-  Wav samples to show the effectiveness of random mask reconstruction module and SV module in the PED scene
-</div>
+  <table  >  
+    <h3><strong>    Audio clips in the PED scene</strong></h3> 
+</table>
 </div>
 <div>
 <table>
   <tr>
     <th> </th>
-    <td>sample1 </td>
-     <td>sample2 </td>
-     <td>sample3 </td>
-     <td>sample4 </td>
+    <td>Sample1 </td>
+     <td>Sample2 </td>
+     <td>Sample3 </td>
+     <td>Sample4 </td>
       </tr>
 <tr>
   <td>
-    clean
+    Clean
   </td>
   <td>
     <div class="audio-wrapper">
@@ -1334,24 +1095,24 @@ Comparison and ablation experiment results in multiple noisy scenes in CHiME-3
 <!--***********************STR******************************-->
 <div class="spacer"></div> 
 <div class="spacer"></div> 
+
 <div>
-<div  class="table-name">
-  
-  Wav samples to show the effectiveness of random mask reconstruction module and SV module in the STR scene
-</div>
+  <table  >  
+    <h3><strong>    Audio clips in the STR scene</strong></h3> 
+</table>
 </div>
 <div>
 <table>
   <tr>
     <th> </th>
-    <td>sample1 </td>
-     <td>sample2 </td>
-     <td>sample3 </td>
-     <td>sample4 </td>
+    <td>Sample1 </td>
+     <td>Sample2 </td>
+     <td>Sample3 </td>
+     <td>Sample4 </td>
       </tr>
 <tr>
   <td>
-    clean
+    Clean
   </td>
   <td>
     <div class="audio-wrapper">
@@ -1605,28 +1366,28 @@ Comparison and ablation experiment results in multiple noisy scenes in CHiME-3
 </table>
 </div>
 
+<div class="spacer"></div> 
 
 <div>
 <p>
-  <b style="font-size: 22px;">Conclusion:</b> <br>
-  <b>1)</b>When compared with the noisy data, our STGCSEN-SV shows average more than 60% improvement over all scenes (BUS: 66.45%, CAF: 61.93%, PED: 62.15%, STR: 69.75%).<br>
-  <b>2)</b> When compared the average PESQ with the supervised baselines(CNN, LSTM-IPD, UNet-GCN), our model improves 22.35%, 15.81%, 25.46%. Compared with STGCSEN, we can find that the performance of STGCSEN-SV on CAF and PED also has improvement. <br>
-  <b>3)</b>Compared with self-supervised baseline MetricGAN-U, STGCSEN-SV improves the noisy speech PESQ by an average of 58.16%.<br>
-  <b>4)</b>To show the effectiveness of the proposed SV extension, we adopt the same generator architecture with MetricGAN-U. The MetricGAN-U-SV has 27.12% improvement on the average PESQ compared with MetricGAN-U.<br>
-  <b>5)</b>Ablation experiment shows 0.45% improvement given by random mask reconstruction.<br>
-  Above all, the random mask reconstruction module and SV module in our STGCSEN-SV framework have unique effectiveness in self-supervised speech enhancement. 
+  <b style="font-size: 22px;">Conclusions A:</b> <br>
+  <b>1)</b> To verify the performance of our self-supervised framework, compared PESQ with the supervised baselines(CNN, LSTM-IPD, UNet-GCN), our model improves 22.35%, 15.81%, 25.46%. Compared with STGCSEN, it demonstrates that the performance of STGCSEN-SV on CAF and PED also has improvement.<br>
+  <b>2)</b> To demonstrate the effectiveness of proposed self-supervised adversarial learning framework with SV, different network architectures of the generator (STGCSEN、MetricGAN-U) are applied in experiments. By applying our self-supervised learning framework, in CHiME3, MetricGAN-U-SV outperforms MetricGAN-U by average 26.91% over all scenes, STGCSEN-SV outperforms STGCSEN by average 2.4% over all scenes. <br>
+  <b>3)</b> To prove the robustness of our generator and capability of masking, multiple masking methods are tested for generator reconstruction. STGCSEN-SV with and without 3D mask are evaluated in unknown multi-source scenes, that obtains 0.55% improvement of target enhancement performance by adding mask (by calculated the difference improvement between the two models relative to the noisy signals).<br>
   </p>
 </div>
 
+<!--BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB-->
+<!--BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB-->
 
 <div>
-  <h2><strong>C.Experiment on the effectiveness of random mask reconstruction module and SV module in cocktail party</strong></h2>
+  <h2><strong>B. Experiments on the effectiveness of proposed self-supervised adversarial learning framework with SV in cocktail party</strong></h2>
   </div>
 <div>
 
-<div  class="table-name">
-  <strong>Table 3</strong> 
-  Comparison experiment results in multiple noisy scenes in cocktail party 
+<div  class="table-name1">
+  <strong>Table 2</strong> 
+  Experimental results in multiple noisy scenes of cocktail party 
 </div>
 
 <!-- <div>
@@ -1676,11 +1437,11 @@ Comparison and ablation experiment results in multiple noisy scenes in CHiME-3
 <table class="my-table">
   <thead>
     <tr>
-      <th></th>
-      <th>Interferences scene(SNR=10dB)</th>
-      <th>Interferences scene(SNR=15dB)</th>
-      <th>Background noises scene(SNR=10dB)</th>
-      <th>Background noises scene(SNR=15dB)</th>
+      <th>Noisy scene</th>
+      <th>SNR=10dB</th>
+      <th>SNR=15dB</th>
+      <th>SNR=10dB</th>
+      <th>SNR=15dB</th>
       <th>Avg.</th>
     </tr>
   </thead>
@@ -1735,19 +1496,19 @@ Comparison and ablation experiment results in multiple noisy scenes in CHiME-3
 <div class="spacer"></div> 
 <!--*******************************************************-->
 <div>
-  <div  class="table-name">
-     
-    Wav samples to show the effectiveness of random mask reconstruction module and SV module-cocktail party with interferences (SNR=10dB)
-  </div>
+  <table  >  
+    <h3><strong>    Audio clips in the interference scene (SNR=10dB)</strong></h3> 
+</table>
+  
   </div>
   <div>
   <table>
     <tr>
       <th> </th>
-      <td>sample1 </td>
-       <td>sample2 </td>
-       <td>sample3 </td>
-       <td>sample4 </td>
+      <td>Sample1 </td>
+       <td>Sample2 </td>
+       <td>Sample3 </td>
+       <td>Sample4 </td>
         </tr>
   <tr>
   <tr>
@@ -1911,19 +1672,18 @@ Comparison and ablation experiment results in multiple noisy scenes in CHiME-3
 <div class="spacer"></div> 
 <div class="spacer"></div> 
   <div>
-  <div  class="table-name">
-    
-    Wav samples to show the effectiveness of random mask reconstruction module and SV module-cocktail party with interferences (SNR=15dB)
-  </div>
+    <table  >  
+      <h3><strong>    Audio clips in the interference scene (SNR=15dB)</strong></h3> 
+  </table>
   </div>
   <div>
   <table>
     <tr>
       <th> </th>
-      <td>sample1 </td>
-       <td>sample2 </td>
-       <td>sample3 </td>
-       <td>sample4 </td>
+      <td>Sample1 </td>
+       <td>Sample2 </td>
+       <td>Sample3 </td>
+       <td>Sample4 </td>
         </tr>
   <tr>
   <tr>
@@ -2089,19 +1849,19 @@ Comparison and ablation experiment results in multiple noisy scenes in CHiME-3
 <div class="spacer"></div> 
 <div class="spacer"></div>   
   <div>
-  <div  class="table-name">
-     
-    Wav samples to show the effectiveness of random mask reconstruction module and SV module-cocktail party with background noises (SNR=10dB)
-  </div>
+    <table  >  
+      <h3><strong>    Audio clips in the background noise scene (SNR=10dB)</strong></h3> 
+  </table>
+  
   </div>
   <div>
   <table>
     <tr>
       <th> </th>
-      <td>sample1 </td>
-       <td>sample2 </td>
-       <td>sample3 </td>
-       <td>sample4 </td>
+      <td>Sample1 </td>
+       <td>Sample2 </td>
+       <td>Sample3 </td>
+       <td>Sample4 </td>
         </tr>
   <tr>
   <tr>
@@ -2265,19 +2025,18 @@ Comparison and ablation experiment results in multiple noisy scenes in CHiME-3
   <div class="spacer"></div> 
 <div class="spacer"></div>   
   <div>
-  <div  class="table-name">
-     
-    Wav samples to show the effectiveness of random mask reconstruction module and SV module-cocktail party with background noises (SNR=15dB)
-  </div>
+    <table  >  
+      <h3><strong>    Audio clips in the background noise scene (SNR=15dB)</strong></h3> 
+  </table>
   </div>
   <div>
   <table>
     <tr>
       <th> </th>
-      <td>sample1 </td>
-       <td>sample2 </td>
-       <td>sample3 </td>
-       <td>sample4 </td>
+      <td>Sample1 </td>
+       <td>Sample2 </td>
+       <td>Sample3 </td>
+       <td>Sample4 </td>
         </tr>
   <tr>
   <tr>
@@ -2437,16 +2196,273 @@ Comparison and ablation experiment results in multiple noisy scenes in CHiME-3
   </tr>
   </table>
   </div>
+<div class="spacer"></div> 
 
 <div>
 <p>
-  <b style="font-size: 22px;">Conclusion: </b> <br>
-  <b>1)</b> Compared with the noisy data, STGCSEN-SV shows 38.95% improvement on the average of all scenes (33.82%, 43.46%, 40.19% and 37.88%, separately). </br>
-  <b>2)</b> Compared the average PESQ with the supervised baseline STGCSEN, the performance of STGCSEN-SV has 1.87% improvement, which proves the effectiveness of our SV module. </br>  
-  <b>3)</b> Compared with MetricGAN-U, our SV module gives 8.38% improvement on  the average PESQ of all scenes, which demonstrates our SV module's effectiveness. </br>  
-  Above all, the experiment in cocktail party scenes proves the effectiveness of our modules in STGCSEN-SV framework.  
+  <b style="font-size: 22px;">Conclusion B: </b> <br>
+  To demonstrate the effectiveness of proposed self-supervised adversarial learning framework with SV, different network architectures of the generator (STGCSEN、MetricGAN-U) are applied in experiments. By applying our self-supervised learning framework, in cocktail party, MetricGAN-U-SV outperforms MetricGAN-U by average 9.54% over all scenes, STGCSEN-SV outperforms STGCSEN by average 2.55% over all scenes.  
   </p>
 </div>
   
+<div class="spacer"></div>
+<!--CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC-->
+<!--CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC-->
+
+<div>
+<h2><strong>C.Experiments on the robustness of generator against unknown multi-source dynamic scene with different masking</strong></h2>
+
+<div  class="table-name1">
+    <strong>Table 3</strong> 
+    Comparison experiments on different mask methods
+</div>
+</div>
 
 
+<div>
+<table class="head-table">
+  <tbody>
+    <tr>
+      <td width="40%"></td>
+      <th width="20%">MSE</th>
+      <td width="20%"><b>PESQ</b></td>
+      <td width="20%"><b>STOI</b></td>
+    </tr>
+  </tbody>
+</table>
+<table class="middle1-table">
+  <tbody>
+    <tr>
+      <th scope='col'>Original mixtures</th>
+      <td>0.0</td>
+      <td>4.4674</td>
+      <td>1.0</td>
+    </tr>
+  
+  
+    <tr>
+      <th scope="col">DAPC(30% and 40%)</th>
+      <td>0.1109±0.0417</td>
+      <td>1.3926±0.1060</td>
+      <td>0.8366±0.0350</td>
+    </tr>
+    <tr>
+      <th scope='col'>Point mask(30% and 40%)</th>
+      <td>0.0780±0.0209</td>
+      <td>2.4902±0.2093</td>
+      <td>0.9212±0.0190</td>
+    </tr>
+    <tr>
+      <th scope='col'>Frame mask(30% and 40%)</th>
+      <td>0.0789±0.0252</td>
+      <td>2.4972±0.2217</td>
+      <td>0.9141±0.0219</td>
+    </tr>
+    <tr>
+      <th scope='col'>Cross mask(30% and 40%)</th>
+      <td>0.0993±0.0203</td>
+      <td>2.1747±0.2326</td>
+      <td>0.9083±0.0228</td>
+    </tr>
+    <tr>
+      <th scope='one'>Progressive mask(30% and 40%)</th>
+      <td scope='row'>0.0741±0.0210</td>
+      <td scope='row'>2.4969±0.2142</td>
+      <td scope='row'>0.9247±0.0200</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+
+<div >
+  <table  >  
+    <h3><strong>    Audio clips for 3D mask reconstruction</strong></h3> 
+  </table>
+</div>
+<div class="spacer"></div>
+</div>
+<div>
+<table>
+  <tr>
+  <th> </th>
+  <td>Sample1 </td>
+    <td>Sample2 </td>
+    <td>Sample3 </td>
+    <td>Sample4 </td>
+    </tr>
+  <tr>
+  <td>
+    Original mixtures
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Original mixture\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\original mixture\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\original mixture\noisy_fileid_2_01326_05303_230_04069_1635_snr11_tl-26.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\original mixture\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    DAPC(30% and 40%)
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\DAPC\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\DAPC\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\DAPC\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\DAPC\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    Point mask(30% and 40%)
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Point mask\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Point mask\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Point mask\noisy_fileid_2_01326_05303_230_04069_1635_snr11_tl-26.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Point mask\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    Frame mask(30% and 40%)
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Frame mask\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Frame mask\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Frame mask\noisy_fileid_2_01326_05303_230_04069_1635_snr11_tl-26.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Frame mask\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    Cross mask(30% and 40%)
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Cross mask\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Cross mask\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Cross mask\noisy_fileid_2_01326_05303_230_04069_1635_snr11_tl-26.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Cross mask\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
+    </div>
+  </td>
+</tr>
+<tr>
+  <td>
+    Progressive mask(30% and 40%)
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Progressive mask\noisy_fileid_0_03955_02124_465_05303_799_snr11_tl-24.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Progressive mask\noisy_fileid_1_01326_05303_1405_05919_1007_snr10_tl-32.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Progressive mask\noisy_fileid_2_01326_05303_230_04069_1635_snr11_tl-26.wav"></audio>
+    </div>
+  </td>
+  <td>
+    <div class="audio-wrapper">
+      <audio controls src="wav\wav_reconstrcution\Progressive mask\noisy_fileid_2_03955_04069_1543_05303_1543_snr13_tl-22.wav"></audio>
+    </div>
+  </td>
+</tr>
+</table>
+</div>
+
+<div class="spacer"></div> 
+
+<div>
+<p>
+  <b style="font-size: 22px;">Conclusions C: </b> <br>
+  <b>1)</b> The more severely the random mask masks the spectrogram, the better robust the generator performs, the better capability to decorrelate sources. In addition, we learned from additional experiments that the model is more robust at 30% and 40%mask ratios. <br>
+  <b>2)</b> Compared MSE and STOI with different mask methods, it can be seen that the reconstruction performance of the model  training under the progressive mask method is best. According to PESQ, our network has the best reconstruction performance on frame mask. <br>
+  
+</p>
+</div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div>
+  <font size=5><strong>Reference:</strong></font><p>[1] M. Hao, J. Yu and L. Zhang, "Spatial-Temporal Graph Convolution Network for Multichannel Speech Enhancement," ICASSP 2022 - 2022 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), pp. 6512-6516, 2022.</p>
+</div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div class="spacer"></div>
